@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".startup.RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/register_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:hint="@string/firstName"
+            android:imeOptions="actionNext"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
+            android:inputType="text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/register_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:hint="@string/lastName"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/register_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:hint="@string/username"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/register_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:hint="@string/email"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:hint="@string/password"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/register_mobile_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:hint="@string/mobilePhone"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/register_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:hint="@string/companyName"
+            android:imeOptions="actionNext"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
+            android:inputType="text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/register_home_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:hint="@string/homeAddress"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:textColor="@color/orange" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginVertical="@dimen/dimen_10"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:background="@drawable/rounded_orange_button_container"
+        android:text="@string/register"
+        style="@style/text_white_both_20sp"
+        android:padding="@dimen/dimen_5"
+        android:textAllCaps="false" />
+
+    <ProgressBar
+        android:id="@+id/registerProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:theme="@style/progress_bar_color"
+        android:visibility="gone" />
+
+</RelativeLayout>
