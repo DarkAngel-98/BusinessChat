@@ -24,7 +24,7 @@
                 android:layout_height="@dimen/dimen_50"
                 android:layout_centerVertical="true"
                 app:civ_border_color="@color/white"
-                app:civ_border_width="@dimen/dimen_3" />
+                app:civ_border_width="@dimen/dimen_1" />
 
             <LinearLayout
                 android:id="@+id/users_first_and_last_name"

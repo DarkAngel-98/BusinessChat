@@ -200,6 +200,7 @@ class CommunicationFragment : Fragment(), BasicListener, UserListener {
 
     private fun readMessages() {
         chatList = ArrayList()
+        var currentUserId = prefs?.getUserId()
         var currentUserImageUrl = prefs?.getImageUrl()
         var remoteUserImageUrl = user?.imageURL
         var databaseReference =
@@ -221,6 +222,7 @@ class CommunicationFragment : Fragment(), BasicListener, UserListener {
                         chatList!!,
                         R.layout.chat_left_item_layout,
                         R.layout.chat_right_item_layout,
+                        currentUserId,
                         currentUserImageUrl,
                         remoteUserImageUrl
                     )

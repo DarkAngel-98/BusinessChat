@@ -10,13 +10,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/chat_profile_image"
-                android:layout_width="@dimen/dimen_50"
-                android:layout_height="@dimen/dimen_50"
-                android:layout_alignParentEnd="true"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="@dimen/dimen_3" />
+<!--            <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                android:id="@+id/chat_profile_image"-->
+<!--                android:layout_width="@dimen/dimen_50"-->
+<!--                android:layout_height="@dimen/dimen_50"-->
+<!--                android:visibility="visible"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                app:civ_border_color="@color/white"-->
+<!--                app:civ_border_width="@dimen/dimen_3" />-->
 
             <TextView
                 android:id="@+id/chat_message"
@@ -29,7 +30,7 @@
                 android:background="@drawable/background_right_orange"
                 style="@style/text_white_both_20sp"
                 android:text="@{chatRightItem.message}"
-                android:layout_toStartOf="@id/chat_profile_image"
-                android:layout_marginEnd="@dimen/dimen_20"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dimen_10"/>
         </RelativeLayout>
     </RelativeLayout>

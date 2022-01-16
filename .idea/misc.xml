@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/background_left_purple.xml" value="0.2203125" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/background_right_orange.xml" value="0.2203125" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/rounded_green_button_container.xml" value="0.1765625" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/rounded_red_button_container.xml" value="0.1765625" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/activity_register.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/activity_register_or_login.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/chat_left_item_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/chat_right_item_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_my_business_card_bottom_sheet.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_users.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/user_row_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/Businesscards/app/src/main/res/drawable-v24/background_right_white.xml" value="0.1375" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/Businesscards/app/src/main/res/drawable/background_left_white.xml" value="0.1375" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/Businesscards/app/src/main/res/drawable/background_right.xml" value="0.1375" />

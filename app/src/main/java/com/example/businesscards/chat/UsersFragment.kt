@@ -1,17 +1,25 @@
 package com.example.businesscards.chat
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businesscards.R
+import com.example.businesscards.StartActivity
 import com.example.businesscards.adapters.UsersAdapter
 import com.example.businesscards.constants.HeartSingleton
+import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.FragmentUsersBinding
 import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.interfaces.UserListener
@@ -24,12 +32,17 @@ import com.google.firebase.database.*
 class UsersFragment : Fragment(), BasicListener, UserListener {
     private lateinit var binding: FragmentUsersBinding
     private var communicationFragment: CommunicationFragment = CommunicationFragment()
+    private var businessCardFragment: MyBusinessCardBottomSheetFragment = MyBusinessCardBottomSheetFragment()
     private var usersAdapter: UsersAdapter? = null
+    private var prefs: PreferenceClass? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
 
         }
+        prefs = PreferenceClass(requireActivity())
     }
 
     override fun onCreateView(
@@ -109,7 +122,50 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
             .commit()
         }
     }
+
+    private fun openBusinessCardFragment(user: UserInfo){
+        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
+        businessCardFragment.arguments = bundle
+        activity?.let { (activity as MainActivity)
+            .setNavigationPanelSelectedTab(R.id.navigate_business_cards)
+        }
+        activity?.let { (activity as MainActivity).supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_frame_layout, businessCardFragment)
+            .commit()
+        }
+    }
+
+    private fun openMyCard(){
+        var currentUser = UserInfo()
+
+        currentUser.firstName = prefs?.getFirstName()
+        currentUser.lastName = prefs?.getLastName()
+        currentUser.imageURL = prefs?.getImageUrl()
+        currentUser.companyName = prefs?.getCompanyName()
+        currentUser.email = prefs?.getUserEmail()
+        currentUser.mobilePhone = prefs?.getMobilePhone()
+
+        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to currentUser)
+        businessCardFragment.arguments = bundle
+        MyBusinessCardBottomSheetFragment.showReportComment(currentUser, requireActivity())
+    }
+
+    private fun showAlertDialog(title: String, user: UserInfo) {
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle(title)
+        alertDialog.setPositiveButton("Card") { _, _ ->
+            Handler(Looper.getMainLooper()).postDelayed({openMyCard()},500)
+        }
+
+        alertDialog.setNegativeButton("Chat") { _, _ ->
+            Handler(Looper.getMainLooper()).postDelayed({openCommunicationFragment(user)},500)
+        }
+
+        alertDialog.create()
+        alertDialog.show()
+    }
     override fun onUserClicked(user: UserInfo) {
-        openCommunicationFragment(user)
+        showAlertDialog(HeartSingleton.AlertDialogCardOrChat, user)
     }
 }

@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/email"
+            android:hint="@string/enterYourEmail"
             android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"
             android:imeOptions="actionNext"
@@ -83,11 +83,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/mobilePhone"
+            android:hint="@string/enterYourMobilePhone"
             android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"
             android:imeOptions="actionNext"
-            android:inputType="number"
+            android:inputType="phone"
             android:textColor="@color/orange" />
 
         <EditText
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/companyName"
+            android:hint="@string/enterYourCompanyName"
             android:imeOptions="actionNext"
             android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"

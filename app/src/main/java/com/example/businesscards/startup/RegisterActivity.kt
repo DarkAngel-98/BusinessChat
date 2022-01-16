@@ -46,7 +46,7 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
             var pass: String = binding.registerPassword.text.toString()
 
             if(fName.isEmpty() || lName.isEmpty() || user.isEmpty() || mail.isEmpty() || pass.isEmpty() || mobPhone.isEmpty() || compName.isEmpty()){
-                showAlertDialog()
+                showAlertDialog(HeartSingleton.AlertDialogTitle)
             }
             else {
                 registerUser(fName, lName, user, mail, pass,mobPhone, compName, homeAddress)
@@ -54,9 +54,9 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
         }
     }
 
-    private fun showAlertDialog(){
+    private fun showAlertDialog(title: String){
         val alertDialog= AlertDialog.Builder(this)
-        alertDialog.setTitle(HeartSingleton.AlertDialogTitle)
+        alertDialog.setTitle(title)
         alertDialog.setNegativeButton("OK", DialogInterface.OnClickListener { dialogInterface, _ ->
             dialogInterface.cancel()
             onStopped()

@@ -26,14 +26,39 @@
         <item name="android:textColor">@color/white_both</item>
         <item name="android:textSize">12sp</item>
     </style>
+
+    <style name="text_white_both_18sp" parent="@style/Theme.AppCompat">
+        <item name="android:textColor">@color/white_both</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="text_white_both_18sp_bold" parent="@style/Theme.AppCompat">
+        <item name="android:textColor">@color/white_both</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text_dark_blue_18sp_bold" parent="@style/Theme.AppCompat">
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="text_white_both_25sp" parent="@style/Theme.AppCompat">
         <item name="android:textColor">@color/white_both</item>
         <item name="android:textSize">25sp</item>
     </style>
+
+    <style name="text_dark_blue_25sp" parent="@style/Theme.AppCompat">
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
     <style name="text_white_both_20sp" parent="@style/Theme.AppCompat">
         <item name="android:textColor">@color/white_both</item>
         <item name="android:textSize">20sp</item>
     </style>
+
 
     <style name="text_white_18sp" parent="@style/Theme.AppCompat">
         <item name="android:textColor">@color/white</item>

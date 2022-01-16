@@ -10,6 +10,8 @@
     <color name="white_both">#FFFFFFFF</color>
     <color name="orange">#EA5608</color>
     <color name="red">#D22B2B</color>
+    <color name="lime_green">#7CFC00</color>
+    <color name="dark_blue">#00008B</color>
     <color name="purple">#800080</color>
     <color name="green_blue">#15E7B4</color>
     <color name="default_gray">#e5e5ea</color>

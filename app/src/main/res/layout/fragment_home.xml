@@ -23,6 +23,7 @@
                 android:id="@+id/home_card"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:elevation="@dimen/dimen_10"
                 android:layout_marginHorizontal="@dimen/dimen_16"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:background="@drawable/card_view_background_orange"
@@ -38,7 +39,7 @@
                         android:id="@+id/home_profile_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@color/green_blue"/>
+                        android:src="@color/green_blue" />
 
                     <ImageView
                         android:id="@+id/add_picture_button"
