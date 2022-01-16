@@ -4,9 +4,9 @@ class BusinessCardModel {
     var receiverId: String? = ""
     var senderId: String? = ""
 
-    var imageUrl: String? = ""
-    var fullName: String? = ""
-    var companyName: String? = ""
-    var email: String? = ""
+    var cardImageUrl: String? = ""
+    var cardFullName: String? = ""
+    var cardCompanyName: String? = ""
+    var cardEmail: String? = ""
     var mobilePhone: String? = ""
 }

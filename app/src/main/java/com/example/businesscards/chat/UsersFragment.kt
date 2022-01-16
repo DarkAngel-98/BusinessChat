@@ -136,26 +136,18 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
         }
     }
 
-    private fun openMyCard(){
-        var currentUser = UserInfo()
+    private fun openMyCard(user: UserInfo){
 
-        currentUser.firstName = prefs?.getFirstName()
-        currentUser.lastName = prefs?.getLastName()
-        currentUser.imageURL = prefs?.getImageUrl()
-        currentUser.companyName = prefs?.getCompanyName()
-        currentUser.email = prefs?.getUserEmail()
-        currentUser.mobilePhone = prefs?.getMobilePhone()
-
-        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to currentUser)
+        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
         businessCardFragment.arguments = bundle
-        MyBusinessCardBottomSheetFragment.showReportComment(currentUser, requireActivity())
+        MyBusinessCardBottomSheetFragment.showReportComment(user, requireActivity())
     }
 
     private fun showAlertDialog(title: String, user: UserInfo) {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle(title)
         alertDialog.setPositiveButton("Card") { _, _ ->
-            Handler(Looper.getMainLooper()).postDelayed({openMyCard()},500)
+            Handler(Looper.getMainLooper()).postDelayed({openMyCard(user)},500)
         }
 
         alertDialog.setNegativeButton("Chat") { _, _ ->

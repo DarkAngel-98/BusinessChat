@@ -17,6 +17,7 @@ object HeartSingleton {
     const val FireUsersDB = "Users"
     const val FireChatDB = "Chats"
     const val FireChatIdDB = "ChatID"
+    const val FireCardIdDB = "CardID"
     const val FireUploadsDB = "Uploads"
     const val FireCardsDB = "Cards"
     const val FireId = "id"

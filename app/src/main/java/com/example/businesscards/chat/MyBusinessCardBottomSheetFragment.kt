@@ -14,8 +14,10 @@ import com.example.businesscards.R
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.FragmentMyBusinessCardBottomSheetBinding
+import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.models.BusinessCardModel
 import com.example.businesscards.models.UserInfo
+import com.example.businesscards.startup.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -25,10 +27,11 @@ import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
 
-class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment() {
+class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicListener {
 
     private lateinit var binding: FragmentMyBusinessCardBottomSheetBinding
     private var user: UserInfo? = null
+    private var card: BusinessCardModel = BusinessCardModel()
     private var prefs: PreferenceClass? = null
     private lateinit var auth: FirebaseAuth
     var firebaseUser: FirebaseUser? = null
@@ -80,13 +83,20 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment() {
             isFitToContents = false
             state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
-        binding.myCardFullName.text = user?.firstName + "\n" + user?.lastName
-        binding.myCardCompanyName.setText(user?.companyName)
-        binding.myCardEmail.setText(user?.email)
-        binding.myCardMobilePhone.setText(user?.mobilePhone)
 
-        if(user?.imageURL != null )
-            Picasso.get().load(user?.imageURL).into(binding.myCardProfilePicture)
+        card.cardImageUrl = prefs?.getImageUrl()
+        card.cardFullName = prefs?.getFirstName() + " " + prefs?.getLastName()
+        card.cardCompanyName = prefs?.getCompanyName()
+        card.cardEmail = prefs?.getUserEmail()
+        card.mobilePhone = prefs?.getMobilePhone()
+
+        binding.myCardFullName.text = prefs?.getFirstName() + "\n" + prefs?.getLastName()
+        binding.myCardCompanyName.setText(prefs?.getCompanyName())
+        binding.myCardEmail.setText(prefs?.getUserEmail())
+        binding.myCardMobilePhone.setText(prefs?.getMobilePhone())
+
+        if(prefs?.getImageUrl() != null)
+            Picasso.get().load(prefs?.getImageUrl()).into(binding.myCardProfilePicture)
 
         setupListeners()
 
@@ -119,7 +129,10 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment() {
             }
         }
         binding.myCardSendBtn.setOnClickListener {
-            sendBusinessCard("", "", BusinessCardModel())
+            var senderId = prefs?.getUserId()!!
+            var receiverId = user?.id!!
+            onStarted()
+            sendBusinessCard(senderId, receiverId, card)
         }
     }
 
@@ -183,10 +196,10 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment() {
         var hashMap: HashMap<String, Any> = HashMap()
         hashMap[HeartSingleton.FireSenderId] = senderId
         hashMap[HeartSingleton.FireReceiverId] = receiverId
-        hashMap[HeartSingleton.FireCardImageUrl] = card.imageUrl!!
-        hashMap[HeartSingleton.FireCardFullName] = card.fullName!!
-        hashMap[HeartSingleton.FireCardCompanyName] = card.companyName!!
-        hashMap[HeartSingleton.FireCardEmail] = card.email!!
+        hashMap[HeartSingleton.FireCardImageUrl] = card.cardImageUrl!!
+        hashMap[HeartSingleton.FireCardFullName] = card.cardFullName!!
+        hashMap[HeartSingleton.FireCardCompanyName] = card.cardCompanyName!!
+        hashMap[HeartSingleton.FireCardEmail] = card.cardEmail!!
         hashMap[HeartSingleton.FireCardMobilePhone] = card.mobilePhone!!
 
         databaseReference.child(HeartSingleton.FireCardsDB).push().setValue(hashMap)
@@ -194,7 +207,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment() {
         var cardReference: DatabaseReference =
             FirebaseDatabase
                 .getInstance()
-                .getReference(HeartSingleton.FireChatIdDB)
+                .getReference(HeartSingleton.FireCardIdDB)
                 .child(firebaseUser?.uid!!)
                 .child(user?.id!!)
 
@@ -203,13 +216,22 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment() {
                 if(!snapshot.exists()){
                     cardReference.child(HeartSingleton.FireId).setValue(user?.id)
                 }
+                onStopped()
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                onStopped()
             }
 
         })
+    }
+
+    override fun onStarted() {
+        activity?.let { (activity as MainActivity).showProgress() }
+    }
+
+    override fun onStopped() {
+        activity?.let { (activity as MainActivity).hideProgress() }
     }
 
 }

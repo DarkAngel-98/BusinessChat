@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="cardItem"
+            type="com.example.businesscards.models.BusinessCardModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/my_business_card"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginVertical="@dimen/dimen_10"
+        android:background="@drawable/card_view_background_orange"
+        android:elevation="@dimen/dimen_10"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/business_image"
+            android:layout_width="@dimen/dimen_80"
+            android:layout_height="@dimen/dimen_80"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:src="@color/green_blue"
+            app:civ_border_color="@color/white_both"
+            app:civ_border_width="@dimen/dimen_1" />
+
+        <TextView
+            android:id="@+id/business_full_name"
+            style="@style/text_dark_blue_25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_toEndOf="@+id/business_image"
+            android:ellipsize="end"
+            android:maxLines="2" />
+
+        <TextView
+            android:id="@+id/static_company_name"
+            style="@style/text_white_both_18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/business_image"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/company_name" />
+
+        <TextView
+            android:id="@+id/business_company_name"
+            style="@style/text_dark_blue_18sp_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/business_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_toEndOf="@+id/static_company_name"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:text="@{cardItem.cardCompanyName}"
+            android:focusableInTouchMode="false"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/static_mail"
+            style="@style/text_white_both_18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/static_company_name"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/email" />
+
+        <TextView
+            android:id="@+id/business_email"
+            style="@style/text_dark_blue_18sp_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/business_company_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_toEndOf="@+id/static_mail"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:text="@{cardItem.cardEmail}"
+            android:focusableInTouchMode="false"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/static_mobile_phone"
+            style="@style/text_white_both_18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/static_mail"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/mobile_phone" />
+
+        <TextView
+            android:id="@+id/business_phone"
+            style="@style/text_dark_blue_18sp_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/business_email"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_toEndOf="@+id/static_mobile_phone"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:text="@{cardItem.mobilePhone}"
+            android:focusableInTouchMode="false"
+            android:maxLines="1" />
+
+    </RelativeLayout>
+
+</layout>
