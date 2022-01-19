@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businesscards.R
 import com.example.businesscards.StartActivity
@@ -53,6 +54,7 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
             .inflate(inflater, R.layout.fragment_users, container, false)
         binding.lifecycleOwner = this
         onStarted()
+        activity?.let { (activity as MainActivity).showNavigationPanel() }
         return binding.root
     }
 
@@ -110,37 +112,35 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
     override fun onStopped() {
         activity?.let { (activity as MainActivity).hideProgress() }
     }
-    private fun openCommunicationFragment(user: UserInfo?){
-        val bundle = bundleOf(HeartSingleton.BundleChatChat to user)
-        communicationFragment.arguments = bundle
-        activity?.let { (activity as MainActivity)
-            .setNavigationPanelSelectedTab(R.id.navigate_chat)
-        }
-        activity?.let { (activity as MainActivity).supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_frame_layout, communicationFragment)
-            .commit()
-        }
-    }
+//    private fun openCommunicationFragment(user: UserInfo?){
+//        val bundle = bundleOf(HeartSingleton.BundleChatChat to user)
+//        communicationFragment.arguments = bundle
+//        activity?.let { (activity as MainActivity).supportFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.main_frame_layout, communicationFragment)
+//            .commit()
+//        }
+//    }
 
-    private fun openBusinessCardFragment(user: UserInfo){
-        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
-        businessCardFragment.arguments = bundle
-        activity?.let { (activity as MainActivity)
-            .setNavigationPanelSelectedTab(R.id.navigate_business_cards)
-        }
-        activity?.let { (activity as MainActivity).supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_frame_layout, businessCardFragment)
-            .commit()
-        }
-    }
+//    private fun openBusinessCardFragment(user: UserInfo){
+//        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
+//        businessCardFragment.arguments = bundle
+//        activity?.let { (activity as MainActivity)
+//            .setNavigationPanelSelectedTab(R.id.navigate_business_cards)
+//        }
+//        activity?.let { (activity as MainActivity).supportFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.main_frame_layout, businessCardFragment)
+//            .commit()
+//        }
+//    }
 
     private fun openMyCard(user: UserInfo){
 
         val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
         businessCardFragment.arguments = bundle
         MyBusinessCardBottomSheetFragment.showReportComment(user, requireActivity())
+
     }
 
     private fun showAlertDialog(title: String, user: UserInfo) {
@@ -151,11 +151,16 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
         }
 
         alertDialog.setNegativeButton("Chat") { _, _ ->
-            Handler(Looper.getMainLooper()).postDelayed({openCommunicationFragment(user)},500)
+            Handler(Looper.getMainLooper()).postDelayed({navigateToCommunicationFragment(user)},500)
         }
 
         alertDialog.create()
         alertDialog.show()
+    }
+
+    private fun navigateToCommunicationFragment(user: UserInfo){
+        val bundle = bundleOf(HeartSingleton.BundleChatChat to user)
+        findNavController().navigate(R.id.communicationFragment,bundle,null)
     }
     override fun onUserClicked(user: UserInfo) {
         showAlertDialog(HeartSingleton.AlertDialogCardOrChat, user)

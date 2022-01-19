@@ -73,11 +73,10 @@ class BusinessFragment : Fragment(), BasicListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 cardList?.clear()
                 for (cardData in snapshot.children) {
-                    var businessCard: BusinessCardModel
-                    Handler(Looper.getMainLooper()).postDelayed({businessCard = cardData.getValue(BusinessCardModel::class.java) as BusinessCardModel
+                    var businessCard = cardData.getValue(BusinessCardModel::class.java) as BusinessCardModel
                         if (businessCard.receiverId.equals(firebaseUser?.uid)){
                             cardList?.add(businessCard)
-                        }},1000)
+                        }
                 }
                 businessAdapter =
                     BusinessCardAdapter(cardList!!, R.layout.business_card_row_layout)

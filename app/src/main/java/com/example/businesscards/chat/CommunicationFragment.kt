@@ -59,6 +59,7 @@ class CommunicationFragment : Fragment(), BasicListener, UserListener {
                 arguments?.get(HeartSingleton.BundleChatChat) as UserInfo
             Log.d("USERNAME", user?.username!!)
         }
+        activity?.let { (activity as MainActivity).hideNavigationPanel() }
         return binding.root
     }
 
@@ -247,37 +248,37 @@ class CommunicationFragment : Fragment(), BasicListener, UserListener {
         activity?.let { (activity as MainActivity).hideProgress() }
     }
 
-    private fun openCommunicationFragment(user: UserInfo?){
-        val bundle = bundleOf(HeartSingleton.BundleChatChat to user)
-        this.arguments = bundle
-        activity?.let { (activity as MainActivity)
-            .setNavigationPanelSelectedTab(R.id.navigate_chat)
-        }
-        activity?.let {
-
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                (activity as MainActivity).supportFragmentManager
-                    .beginTransaction()
-                    .detach(this)
-                    .commitNow()
-                (activity as MainActivity).supportFragmentManager
-                    .beginTransaction()
-                    .attach(this)
-                    .addToBackStack(null)
-                    .commitNow()
-            }else{
-                (activity as MainActivity).supportFragmentManager
-                    .beginTransaction()
-                    .detach(this)
-                    .attach(this)
-                    .addToBackStack(null)
-                    .commitNow()
-            }
-        }
-    }
+//    private fun openCommunicationFragment(user: UserInfo?){
+//        val bundle = bundleOf(HeartSingleton.BundleChatChat to user)
+//        this.arguments = bundle
+//        activity?.let { (activity as MainActivity)
+//            .setNavigationPanelSelectedTab(R.id.navigate_chat)
+//        }
+//        activity?.let {
+//
+//            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+//                (activity as MainActivity).supportFragmentManager
+//                    .beginTransaction()
+//                    .detach(this)
+//                    .commitNow()
+//                (activity as MainActivity).supportFragmentManager
+//                    .beginTransaction()
+//                    .attach(this)
+//                    .addToBackStack(null)
+//                    .commitNow()
+//            }else{
+//                (activity as MainActivity).supportFragmentManager
+//                    .beginTransaction()
+//                    .detach(this)
+//                    .attach(this)
+//                    .addToBackStack(null)
+//                    .commitNow()
+//            }
+//        }
+//    }
 
     override fun onUserClicked(user: UserInfo) {
-        openCommunicationFragment(user)
+//        openCommunicationFragment(user)
         Toast.makeText(requireContext(), "Hello", Toast.LENGTH_SHORT).show()
     }
 

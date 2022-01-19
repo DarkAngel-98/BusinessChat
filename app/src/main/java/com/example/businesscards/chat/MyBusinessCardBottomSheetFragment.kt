@@ -224,6 +224,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
             }
 
         })
+        //dialog?.dismiss()
     }
 
     override fun onStarted() {
