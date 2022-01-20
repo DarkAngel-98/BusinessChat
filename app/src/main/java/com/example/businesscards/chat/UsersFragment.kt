@@ -1,8 +1,6 @@
 package com.example.businesscards.chat
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,26 +11,25 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businesscards.R
-import com.example.businesscards.StartActivity
 import com.example.businesscards.adapters.UsersAdapter
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.FragmentUsersBinding
+import com.example.businesscards.interfaces.APIService
 import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.interfaces.UserListener
+import com.example.businesscards.models.NotificationClient
 import com.example.businesscards.models.UserInfo
 import com.example.businesscards.startup.MainActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 class UsersFragment : Fragment(), BasicListener, UserListener {
     private lateinit var binding: FragmentUsersBinding
-    private var communicationFragment: CommunicationFragment = CommunicationFragment()
+    private var chatFragment: ChatFragment = ChatFragment()
     private var businessCardFragment: MyBusinessCardBottomSheetFragment = MyBusinessCardBottomSheetFragment()
     private var usersAdapter: UsersAdapter? = null
     private var prefs: PreferenceClass? = null
@@ -105,6 +102,7 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
         })
     }
 
+
     override fun onStarted() {
         activity?.let { (activity as MainActivity).showProgress() }
     }
@@ -151,16 +149,16 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
         }
 
         alertDialog.setNegativeButton("Chat") { _, _ ->
-            Handler(Looper.getMainLooper()).postDelayed({navigateToCommunicationFragment(user)},500)
+            Handler(Looper.getMainLooper()).postDelayed({navigateToChatFragment(user)},500)
         }
 
         alertDialog.create()
         alertDialog.show()
     }
 
-    private fun navigateToCommunicationFragment(user: UserInfo){
+    private fun navigateToChatFragment(user: UserInfo){
         val bundle = bundleOf(HeartSingleton.BundleChatChat to user)
-        findNavController().navigate(R.id.communicationFragment,bundle,null)
+        findNavController().navigate(R.id.chatFragment,bundle,null)
     }
     override fun onUserClicked(user: UserInfo) {
         showAlertDialog(HeartSingleton.AlertDialogCardOrChat, user)

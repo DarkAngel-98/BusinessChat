@@ -15,8 +15,8 @@
         android:label="UsersFragment" >
     </fragment>
     <fragment
-        android:id="@+id/communicationFragment"
-        android:name="com.example.businesscards.chat.CommunicationFragment"
+        android:id="@+id/chatFragment"
+        android:name="com.example.businesscards.chat.ChatFragment"
         android:label="CommunicationFragment" >
     </fragment>
     <fragment

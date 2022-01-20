@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.businesscards.chat.CommunicationFragment" />
+            type="com.example.businesscards.chat.ChatFragment" />
     </data>
 
     <RelativeLayout

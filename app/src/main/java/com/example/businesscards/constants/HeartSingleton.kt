@@ -18,6 +18,7 @@ object HeartSingleton {
     const val FireChatDB = "Chats"
     const val FireChatIdDB = "ChatID"
     const val FireCardIdDB = "CardID"
+    const val FireTokenDB = "Tokens"
     const val FireUploadsDB = "Uploads"
     const val FireCardsDB = "Cards"
     const val FireId = "id"
@@ -39,6 +40,7 @@ object HeartSingleton {
     const val FireCardEmail = "cardEmail"
     const val FireCardCompanyName = "cardCompanyName"
     const val FireCardMobilePhone = "mobilePhone"
+    const val FireSentEd = "Sented"
 
     const val AlertDialogTitle = "Field all required fields"
     const val AlertDialogLogOut = "Are you sure you want to logout ?"
@@ -51,6 +53,12 @@ object HeartSingleton {
 
     const val BundleChatChat = "BundleChatChat"
     const val BundleBusinessCard = "BundleBusinessCard"
+    const val BundleUserId = "userId"
+
+    const val NotificationUser = "user"
+    const val NotificationIcon = "icon"
+    const val NotificationTitle = "title"
+    const val NotificationBody = "body"
 
 
 
