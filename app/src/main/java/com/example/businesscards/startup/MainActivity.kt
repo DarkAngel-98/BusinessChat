@@ -15,16 +15,15 @@ import com.example.businesscards.chat.UsersFragment
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.databinding.ActivityMainBinding
 import com.example.businesscards.home.HomeFragment
+import com.example.businesscards.interfaces.APIService
 import com.example.businesscards.interfaces.BasicListener
+import com.example.businesscards.models.NotificationClient
 
 class MainActivity : AppCompatActivity(), BasicListener {
     private lateinit var binding: ActivityMainBinding
     private var progressBar: ProgressBar? = null
     private var tmpIntent: String? = null
-//    private var chatFragment: ChatFragment = ChatFragment()
-//    private var usersFragment: UsersFragment = UsersFragment()
-//    private var homeFragment: HomeFragment = HomeFragment()
-//    private var businessFragment: BusinessFragment = BusinessFragment()
+    private lateinit var apiService: APIService
     private var navController: NavController? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +38,11 @@ class MainActivity : AppCompatActivity(), BasicListener {
         navController = navHost.navController
         binding.mainBottomNavigationPanel.setupWithNavController(navController!!)
     }
+
+//    fun apiServiceFun(){
+//        apiService = NotificationClient().getClient("https://fcm.googleapis.com/").create(
+//            APIService::class.java)
+//    }
 
     private fun setHomeTitle(title: String?){
         supportActionBar?.title = title

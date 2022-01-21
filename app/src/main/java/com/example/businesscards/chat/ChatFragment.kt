@@ -28,7 +28,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Response
 
 class ChatFragment : Fragment(), BasicListener, UserListener {
 
@@ -96,32 +99,32 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
 
             setupListeners()
         }
-        else {
-            onStarted()
-            binding.communicationFragmentChatLayout.visibility = View.GONE
-            binding.communicationFragmentUserLayout.visibility = View.VISIBLE
-            var usersIdList: ArrayList<ChatID> = ArrayList()
-            var idDatabaseReference =
-                FirebaseDatabase
-                    .getInstance()
-                    .getReference(HeartSingleton.FireChatIdDB)
-                    .child(firebaseUser?.uid!!)
-            idDatabaseReference.addValueEventListener(object: ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    usersIdList.clear()
-
-                    for(data in snapshot.children){
-                        usersIdList.add(data.getValue(ChatID::class.java) as ChatID)
-                    }
-                    showChatUsers(usersIdList)
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-
-                }
-
-            })
-        }
+//        else {
+//            onStarted()
+//            binding.communicationFragmentChatLayout.visibility = View.GONE
+//            binding.communicationFragmentUserLayout.visibility = View.VISIBLE
+//            var usersIdList: ArrayList<ChatID> = ArrayList()
+//            var idDatabaseReference =
+//                FirebaseDatabase
+//                    .getInstance()
+//                    .getReference(HeartSingleton.FireChatIdDB)
+//                    .child(firebaseUser?.uid!!)
+//            idDatabaseReference.addValueEventListener(object: ValueEventListener{
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    usersIdList.clear()
+//
+//                    for(data in snapshot.children){
+//                        usersIdList.add(data.getValue(ChatID::class.java) as ChatID)
+//                    }
+//                    showChatUsers(usersIdList)
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//
+//                }
+//
+//            })
+//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -152,7 +155,6 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
             }
 
         })
-        updateToken(FirebaseMessaging.getInstance().token.toString())
     }
 
     private fun updateToken(token: String){
@@ -210,6 +212,8 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
             }
 
         })
+
+        updateToken(FirebaseMessaging.getInstance().token.toString())
 
         var msg = message
         var reference =
@@ -286,14 +290,28 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
                     var data = NotificationDataModel(firebaseUser!!.uid, R.mipmap.ic_launcher, username + ": ", "New Message",user?.id)
 
                     var sender = NotificationSender(data, token.token)
-                    if(apiService.sendNotification(sender).isSuccessful){
-                        if(apiService.sendNotification(sender).body()?.success != 1){
-                            Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+                    apiService.sendNotification(sender).enqueue(object: retrofit2.Callback<NotificationMyResponse>{
+                        override fun onResponse(
+                            call: Call<NotificationMyResponse>,
+                            response: Response<NotificationMyResponse>
+                        ) {
+                            if(response.code() == 200){
+                                if(response.body()?.success != 1){
+                                    Toast.makeText(requireContext(), "FAILED", Toast.LENGTH_SHORT).show()
+                                }
+                            }
                         }
+
+                        override fun onFailure(call: Call<NotificationMyResponse>, t: Throwable) {
+
+                        }
+
+                    })
+//                        if(apiService.sendNotification(sender).body()?.success != 1){
+//                            Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+//                        }
                     }
                 }
-
-            }
 
             override fun onCancelled(error: DatabaseError) {
 

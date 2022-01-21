@@ -23,7 +23,7 @@ class MyFirebaseIdService: FirebaseMessagingService() {
     private fun updateToken(refreshToken: String) {
         var firebaseUser = FirebaseAuth.getInstance().currentUser
         var databaseReference = FirebaseDatabase.getInstance().getReference(HeartSingleton.FireTokenDB)
-        var token: TokenModel = TokenModel(refreshToken)
+        var token = TokenModel(refreshToken)
         databaseReference.child(firebaseUser!!.uid).setValue(token)
     }
 }
