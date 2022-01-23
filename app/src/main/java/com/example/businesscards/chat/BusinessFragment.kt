@@ -59,8 +59,6 @@ class BusinessFragment : Fragment(), BasicListener {
         showBusinessCards()
 
     }
-
-
     private fun showBusinessCards() {
         cardList = ArrayList()
 
