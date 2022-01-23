@@ -14,7 +14,7 @@ import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.databinding.ActivityMainBinding
 import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.models.PushNotification
-import com.example.businesscards.models.RetrofitInstance
+import com.example.businesscards.notification.RetrofitInstance
 import com.example.businesscards.notification.MyFirebaseMessagingService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

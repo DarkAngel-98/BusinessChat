@@ -1,4 +1,4 @@
-package com.example.businesscards.models
+package com.example.businesscards.notification
 
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.interfaces.APIService
