@@ -16,6 +16,8 @@ import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.FragmentMyBusinessCardBottomSheetBinding
 import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.models.BusinessCardModel
+import com.example.businesscards.models.NotificationData
+import com.example.businesscards.models.PushNotification
 import com.example.businesscards.models.UserInfo
 import com.example.businesscards.startup.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -131,8 +133,9 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
         binding.myCardSendBtn.setOnClickListener {
             var senderId = prefs?.getUserId()!!
             var receiverId = user?.id!!
-            onStarted()
+//            onStarted()
             sendBusinessCard(senderId, receiverId, card)
+
         }
     }
 
@@ -211,6 +214,15 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
                 .child(firebaseUser?.uid!!)
                 .child(user?.id!!)
 
+        var title = "New Business Card"
+        PushNotification(
+            NotificationData(
+                prefs?.getUsername(), "", title
+            ), user?.token!!
+        ).also {
+            (activity as MainActivity).sendNotifications(it)
+        }
+
         cardReference.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(!snapshot.exists()){
@@ -224,7 +236,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
             }
 
         })
-        //dialog?.dismiss()
+        dialog?.dismiss()
     }
 
     override fun onStarted() {
