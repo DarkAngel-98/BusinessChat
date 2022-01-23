@@ -63,10 +63,6 @@ object HeartSingleton {
     const val BundleBusinessCard = "BundleBusinessCard"
     const val BundleUserId = "userId"
 
-    const val NotificationUser = "user"
-    const val NotificationIcon = "icon"
-    const val NotificationTitle = "title"
-    const val NotificationBody = "body"
 
 
 

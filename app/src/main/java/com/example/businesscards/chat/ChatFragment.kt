@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -168,7 +167,6 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
     }
 
     fun onBackPressed(){
-//        Toast.makeText(requireContext(), "Back is pressed", Toast.LENGTH_SHORT).show()
         setNewMessageSeen(0, user!!)
     }
 
@@ -224,7 +222,7 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
     }
 
     override fun onUserClicked(user: UserInfo) {
-        Toast.makeText(requireContext(), "Hello", Toast.LENGTH_SHORT).show()
+        // NOT NEEDED HERE
     }
 
 }

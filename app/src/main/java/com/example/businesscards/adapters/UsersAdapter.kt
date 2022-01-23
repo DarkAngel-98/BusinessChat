@@ -42,7 +42,7 @@ class UsersAdapter(
             if(!users[position].imageURL.isNullOrEmpty() && !(users[position].imageURL.equals(HeartSingleton.FireDefault)))
                 Picasso.get().load(users[position].imageURL).into(holder.binding.usersProfilePic)
             else if(users[position].imageURL.equals(HeartSingleton.FireDefault))
-                holder.binding.usersProfilePic.setImageResource(R.drawable.ic_default_profile_picture)
+                holder.binding.usersProfilePic.setImageResource(R.drawable.ic_add_a_photo)
 
             if(users[position].status == 0)
                 holder.binding.usersStatus.setImageResource(R.color.gray_status_offline)

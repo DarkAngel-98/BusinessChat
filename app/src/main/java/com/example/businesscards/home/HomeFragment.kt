@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,7 @@ class HomeFragment : Fragment(), BasicListener {
     var accountInfoAdapter: AccountInfoAdapter? = null
     var tmpBundleValue: String? = null
     var userInfo: UserInfo? = null
+    private val TAG = "HOME_FRAGMENT"
 
     var fName: String? = null
     var lName: String? = null
@@ -236,16 +238,12 @@ class HomeFragment : Fragment(), BasicListener {
                         progressDialog.dismiss()
                     }
                     else{
-                        Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show()
                         progressDialog.dismiss()
                     }
                 }.addOnFailureListener{task ->
-                    Toast.makeText(requireContext(), task.message, Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, task.message.toString())
                     progressDialog.dismiss()
                 }
-
-
-
         } else {
             Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
         }

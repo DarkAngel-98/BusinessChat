@@ -11,22 +11,42 @@
             type="com.example.businesscards.home.HomeFragment" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/custom_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/orange">
+
+            <TextView
+                style="@style/text_white_both_20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/home" />
+        </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/custom_toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <LinearLayout
                 android:id="@+id/home_card"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:elevation="@dimen/dimen_10"
                 android:layout_marginHorizontal="@dimen/dimen_16"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:background="@drawable/card_view_background_orange"
+                android:elevation="@dimen/dimen_20"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -38,8 +58,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/home_profile_image"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@color/green_blue" />
+                        android:layout_height="match_parent" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/add_picture_button"
@@ -51,7 +70,6 @@
                         android:src="@drawable/ic_add_circle"
                         app:civ_circle_background_color="@color/white_both" />
                 </RelativeLayout>
-
 
 
                 <TextView
@@ -114,4 +132,5 @@
             </LinearLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 </layout>
