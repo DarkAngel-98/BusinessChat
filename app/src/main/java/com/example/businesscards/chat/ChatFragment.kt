@@ -12,23 +12,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businesscards.R
 import com.example.businesscards.adapters.MessagesAdapter
-import com.example.businesscards.adapters.UsersAdapter
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.FragmentCommunicationBinding
 import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.interfaces.UserListener
 import com.example.businesscards.models.*
-import com.example.businesscards.notification.MyFirebaseMessagingService
 import com.example.businesscards.startup.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class ChatFragment : Fragment(), BasicListener, UserListener {
@@ -83,6 +77,7 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
             else if(user?.status == 1)
                 binding.usersStatus.setImageResource(R.color.green_status_online)
 
+
             binding.usersName.text = user?.firstName
             binding.usersSurname.text = user?.lastName
             //Picasso.get().load(user?.imageURL).into(binding.communicationProfilePicture)
@@ -92,7 +87,6 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
                 binding.communicationProfilePicture.setImageResource(R.drawable.ic_default_profile_picture)
 
             readMessages()
-
             setupListeners()
         }
     }
@@ -105,6 +99,8 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
             var message = binding.sendMessage.text.toString()
             if (!message.isNullOrEmpty()) {
                 sendMessage(firebaseUser?.uid!!, user?.id!!, message)
+                UsersFragment.newMessage = 1
+                UsersFragment.senderId = firebaseUser?.uid!!
                 binding.sendMessage.text.clear()
                 var title = "New Message"
                 PushNotification(
@@ -128,6 +124,7 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
         hashMap[HeartSingleton.FireSenderId] = senderId
         hashMap[HeartSingleton.FireReceiverId] = receiverId
         hashMap[HeartSingleton.FireMessage] = message
+
 
         databaseReference?.child(HeartSingleton.FireChatDB)?.push()?.setValue(hashMap)
 
@@ -170,6 +167,7 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
                         chat.receiverId.equals(user?.id) && chat.senderId.equals(firebaseUser?.uid)
                     ) {
                         chatList?.add(chat)
+
                     }
                 }
                 messagesAdapter =
@@ -194,6 +192,13 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+//        if(UsersFragment.newMessage == 1) {
+//            UsersFragment.newMessage = 0
+//            UsersFragment.senderId = ""
+//        }
+    }
 
     override fun onStarted() {
         activity?.let { (activity as MainActivity).showProgress() }

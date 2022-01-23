@@ -85,6 +85,15 @@
                 android:maxLines="1"
                 android:text="@{userItem.username}" />
 
+            <ImageView
+                android:id="@+id/seen_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/users_first_and_last_name"
+                android:src="@drawable/ic_message_unread"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dimen_16"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

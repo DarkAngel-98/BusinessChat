@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businesscards.R
@@ -23,13 +23,22 @@ import com.example.businesscards.interfaces.UserListener
 import com.example.businesscards.models.UserInfo
 import com.example.businesscards.startup.MainActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class UsersFragment : Fragment(), BasicListener, UserListener {
     private lateinit var binding: FragmentUsersBinding
-    private var businessCardFragment: MyBusinessCardBottomSheetFragment = MyBusinessCardBottomSheetFragment()
+    private var businessCardFragment: MyBusinessCardBottomSheetFragment =
+        MyBusinessCardBottomSheetFragment()
     private var usersAdapter: UsersAdapter? = null
     private var prefs: PreferenceClass? = null
+
+    companion object {
+        var newMessage = 0
+        var senderId = ""
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +74,7 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun getAllUsers(){
+    private fun getAllUsers() {
         var usersList: ArrayList<UserInfo> = ArrayList()
         usersAdapter = UsersAdapter(usersList, R.layout.user_row_layout, this)
         var firebaseUser = FirebaseAuth.getInstance().currentUser
@@ -73,16 +82,20 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
             FirebaseDatabase
                 .getInstance()
                 .getReference(HeartSingleton.FireUsersDB)
-        databaseReference.addValueEventListener(object: ValueEventListener {
+        databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 usersList.clear()
-                for(dataRow in snapshot.children){
+                for (dataRow in snapshot.children) {
                     var chatInfo: UserInfo = dataRow.getValue(UserInfo::class.java) as UserInfo
 
-                    if(!chatInfo.id.equals(firebaseUser?.uid)){
+                    if (!chatInfo.id.equals(firebaseUser?.uid)) {
                         usersList.add(chatInfo)
                     }
+                    else if (chatInfo.id.equals(senderId)) {
+                        chatInfo.newMessage = newMessage
+                    }
+
                 }
                 binding.rvAllUsers.apply {
 
@@ -107,7 +120,8 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
     override fun onStopped() {
         activity?.let { (activity as MainActivity).hideProgress() }
     }
-    private fun openMyCard(user: UserInfo){
+
+    private fun openMyCard(user: UserInfo) {
 
         val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
         businessCardFragment.arguments = bundle
@@ -119,21 +133,22 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle(title)
         alertDialog.setPositiveButton("Card") { _, _ ->
-            Handler(Looper.getMainLooper()).postDelayed({openMyCard(user)},500)
+            Handler(Looper.getMainLooper()).postDelayed({ openMyCard(user) }, 500)
         }
 
         alertDialog.setNegativeButton("Chat") { _, _ ->
-            Handler(Looper.getMainLooper()).postDelayed({navigateToChatFragment(user)},500)
+            Handler(Looper.getMainLooper()).postDelayed({ navigateToChatFragment(user) }, 500)
         }
 
         alertDialog.create()
         alertDialog.show()
     }
 
-    private fun navigateToChatFragment(user: UserInfo){
+    private fun navigateToChatFragment(user: UserInfo) {
         val bundle = bundleOf(HeartSingleton.BundleChatChat to user)
-        findNavController().navigate(R.id.chatFragment,bundle,null)
+        findNavController().navigate(R.id.chatFragment, bundle, null)
     }
+
     override fun onUserClicked(user: UserInfo) {
         showAlertDialog(HeartSingleton.AlertDialogCardOrChat, user)
     }

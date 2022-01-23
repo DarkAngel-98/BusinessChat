@@ -2,6 +2,7 @@ package com.example.businesscards.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.businesscards.R
@@ -47,6 +48,12 @@ class UsersAdapter(
                 holder.binding.usersStatus.setImageResource(R.color.gray_status_offline)
             else if(users[position].status == 1)
                 holder.binding.usersStatus.setImageResource(R.color.green_status_online)
+
+            if(users[position].newMessage == 1){
+                holder.binding.seenMessage.visibility = View.VISIBLE
+            }
+            else
+                holder.binding.seenMessage.visibility = View.GONE
 
             holder.binding.userRowRootLayout.setOnClickListener {
                 userListener.onUserClicked(user)

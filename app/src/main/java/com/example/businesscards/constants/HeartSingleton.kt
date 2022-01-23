@@ -49,6 +49,7 @@ object HeartSingleton {
     const val FireCardMobilePhone = "mobilePhone"
     const val FireToken = "token"
     const val FireStatus = "status"
+    const val FireSeen = "seen"
 
     const val AlertDialogTitle = "Field all required fields"
     const val AlertDialogLogOut = "Are you sure you want to logout ?"
