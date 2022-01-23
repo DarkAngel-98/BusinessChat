@@ -23,6 +23,7 @@ import com.example.businesscards.interfaces.UserListener
 import com.example.businesscards.models.UserInfo
 import com.example.businesscards.startup.MainActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -34,6 +35,7 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
         MyBusinessCardBottomSheetFragment()
     private var usersAdapter: UsersAdapter? = null
     private var prefs: PreferenceClass? = null
+    var firebaseUser: FirebaseUser? = null
 
     companion object {
         var newMessage = 0
@@ -47,6 +49,7 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
 
         }
         prefs = PreferenceClass(requireActivity())
+        firebaseUser = FirebaseAuth.getInstance().currentUser
     }
 
     override fun onCreateView(
@@ -92,9 +95,9 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
                     if (!chatInfo.id.equals(firebaseUser?.uid)) {
                         usersList.add(chatInfo)
                     }
-                    else if (chatInfo.id.equals(senderId)) {
-                        chatInfo.newMessage = newMessage
-                    }
+//                    else if (chatInfo.id.equals(senderId)) {
+//                        chatInfo.newMessage = newMessage
+//                    }
 
                 }
                 binding.rvAllUsers.apply {
@@ -137,11 +140,20 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
         }
 
         alertDialog.setNegativeButton("Chat") { _, _ ->
+            if(user.newMessage == 1)
+                Handler(Looper.getMainLooper()).postDelayed({ setNewMessage(0, user) }, 200)
+
             Handler(Looper.getMainLooper()).postDelayed({ navigateToChatFragment(user) }, 500)
         }
 
         alertDialog.create()
         alertDialog.show()
+    }
+
+    private fun setNewMessage(newMessage: Int, user: UserInfo){
+        FirebaseDatabase.getInstance()
+            .getReference(HeartSingleton.FireUsersDB)
+            .child(user.id!!).child(HeartSingleton.FireNewMessage).setValue(newMessage)
     }
 
     private fun navigateToChatFragment(user: UserInfo) {

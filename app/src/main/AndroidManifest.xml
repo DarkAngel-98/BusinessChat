@@ -51,7 +51,7 @@
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
-            android:name=".startup.RegisterActivity"
+            android:name=".startup.register.RegisterActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

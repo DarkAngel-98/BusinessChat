@@ -1,27 +1,43 @@
-package com.example.businesscards.startup
+package com.example.businesscards.startup.register
 
+import android.app.ProgressDialog
+import android.content.ContentResolver
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.ActivityRegisterBinding
 import com.example.businesscards.interfaces.BasicListener
+import com.example.businesscards.startup.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
 
 class RegisterActivity : AppCompatActivity(), BasicListener {
     private lateinit var binding: ActivityRegisterBinding
     private var prefs: PreferenceClass? = null
     private lateinit var auth: FirebaseAuth
     lateinit var firebaseReference: DatabaseReference
+    private val IMAGE_REQUEST = 1
+    private var newImageUrl: Uri? = null
+    private var uploadTask: StorageTask<UploadTask.TaskSnapshot>? = null
+
+    var firebaseUser: FirebaseUser? = null
+    var databaseReference: DatabaseReference? = null
+    var storageReference: StorageReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +48,11 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
         auth = FirebaseAuth.getInstance()
         setupListeners()
         prefs = PreferenceClass(this)
+        storageReference =
+            FirebaseStorage.getInstance().getReference(HeartSingleton.FireUploadsDB)
     }
     private fun setupListeners(){
+
         binding.registerButton.setOnClickListener {
             onStarted()
             var fName: String = binding.registerFirstName.text.toString()
@@ -51,6 +70,81 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
             else {
                 registerUser(fName, lName, user, mail, pass,mobPhone, compName, homeAddress)
             }
+        }
+    }
+
+    private fun openImages() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, IMAGE_REQUEST)
+    }
+
+    private fun getFileExtension(uri: Uri): String {
+        var contentResolver: ContentResolver = this.contentResolver
+        var mimeTypeMap: MimeTypeMap = MimeTypeMap.getSingleton()
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))!!
+    }
+
+    private fun uploadImage() {
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Uploading")
+        progressDialog.show()
+
+        if (newImageUrl != null) {
+            val fileReference: StorageReference = storageReference!!.child(
+                System.currentTimeMillis().toString() + "." + getFileExtension(newImageUrl!!)
+            )
+            uploadTask = fileReference.putFile(newImageUrl!!)
+
+            uploadTask!!.continueWithTask { task ->
+                if(!task.isSuccessful){
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                fileReference.downloadUrl
+            }.addOnCompleteListener{task ->
+                if(task.isSuccessful){
+                    val downloadUri = task.result
+                    val downloadUriString = downloadUri.toString()
+                    prefs?.saveImageUrl(downloadUriString)
+                    databaseReference = FirebaseDatabase
+                        .getInstance()
+                        .getReference(HeartSingleton.FireUsersDB)
+                        .child(firebaseUser!!.uid)
+
+                    var hashMap: HashMap<String, Any> = HashMap()
+                    hashMap[HeartSingleton.FireImageUrl] = downloadUriString
+                    databaseReference?.updateChildren(hashMap)
+
+                    progressDialog.dismiss()
+                }
+                else{
+                    Toast.makeText(this, "", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
+                }
+            }.addOnFailureListener{task ->
+                Toast.makeText(this, task.message, Toast.LENGTH_SHORT).show()
+                progressDialog.dismiss()
+            }
+
+
+
+        } else {
+            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
+            newImageUrl = data.data
+            if (uploadTask != null && uploadTask!!.isInProgress) {
+                Toast.makeText(this, "Upload in progress", Toast.LENGTH_SHORT).show()
+            } else
+                uploadImage()
         }
     }
 
@@ -98,6 +192,10 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         intent.putExtra(HeartSingleton.IntentFlag, HeartSingleton.IntentRegister)
+
+                        // create bottom sheet fragment to upload image!
+
+
                         // save the important data into sharedPrefs
                         prefs?.setUserLoggedIn(true)
                         prefs?.saveUserId(userId)

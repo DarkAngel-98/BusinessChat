@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.businesscards.R
+import com.example.businesscards.chat.ChatFragment
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.databinding.ActivityMainBinding
 import com.example.businesscards.interfaces.BasicListener
@@ -103,8 +105,18 @@ class MainActivity : AppCompatActivity(), BasicListener {
     fun hideProgress(){
         progressBar?.visibility = View.GONE
     }
-
+    private fun getCurrentFragment(): Fragment? {
+        val navHost = supportFragmentManager
+            .findFragmentById(R.id.nav_host)
+        navHost?.let { navFragment ->
+            navFragment.childFragmentManager.primaryNavigationFragment?.let { return navFragment.childFragmentManager.primaryNavigationFragment }
+        }
+        return null
+    }
     override fun onBackPressed() {
+        if(getCurrentFragment() is ChatFragment){
+            (getCurrentFragment() as ChatFragment).onBackPressed()
+        }
         super.onBackPressed()
     }
 

@@ -31,5 +31,6 @@
     <string name="account_info">Account Info</string>
     <string name="dialog_progress_uploading">Uploading</string>
     <string name="done_btn">Done</string>
+    <string name="move_next">Continue</string>
 
 </resources>

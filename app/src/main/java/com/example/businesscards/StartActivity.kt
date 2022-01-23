@@ -8,7 +8,6 @@ import android.widget.Toast
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.ActivityStartBinding
 import com.example.businesscards.startup.MainActivity
-import com.example.businesscards.startup.RegisterActivity
 import com.example.businesscards.startup.RegisterOrLoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

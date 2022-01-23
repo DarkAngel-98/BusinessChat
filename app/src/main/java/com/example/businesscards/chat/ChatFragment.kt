@@ -110,11 +110,25 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
                 ).also {
                     (activity as MainActivity).sendNotifications(it)
                 }
-                Toast.makeText(requireContext(), "Message was sent", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Message was NOT sent", Toast.LENGTH_SHORT).show()
+                Log.d(TAG, message.toString())
             }
         }
+        onBackPressed()
+    }
+
+    private fun setNewMessage(newMessage: Int){
+        var currentUserId = firebaseUser?.uid!!
+
+        FirebaseDatabase.getInstance()
+            .getReference(HeartSingleton.FireUsersDB)
+            .child(currentUserId).child(HeartSingleton.FireNewMessage).setValue(newMessage)
+    }
+
+    private fun setNewMessageSeen(newMessage: Int, user: UserInfo){
+        FirebaseDatabase.getInstance()
+            .getReference(HeartSingleton.FireUsersDB)
+            .child(user.id!!).child(HeartSingleton.FireNewMessage).setValue(newMessage)
     }
 
     private fun sendMessage(senderId: String, receiverId: String, message: String) {
@@ -125,6 +139,7 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
         hashMap[HeartSingleton.FireReceiverId] = receiverId
         hashMap[HeartSingleton.FireMessage] = message
 
+        setNewMessage(1)
 
         databaseReference?.child(HeartSingleton.FireChatDB)?.push()?.setValue(hashMap)
 
@@ -148,6 +163,11 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
 
         })
 
+    }
+
+    fun onBackPressed(){
+//        Toast.makeText(requireContext(), "Back is pressed", Toast.LENGTH_SHORT).show()
+        setNewMessageSeen(0, user!!)
     }
 
     private fun readMessages() {
@@ -192,13 +212,6 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-//        if(UsersFragment.newMessage == 1) {
-//            UsersFragment.newMessage = 0
-//            UsersFragment.senderId = ""
-//        }
-    }
 
     override fun onStarted() {
         activity?.let { (activity as MainActivity).showProgress() }

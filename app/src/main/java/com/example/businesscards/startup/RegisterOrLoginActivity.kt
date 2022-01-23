@@ -3,8 +3,8 @@ package com.example.businesscards.startup
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.businesscards.R
 import com.example.businesscards.databinding.ActivityRegisterOrLoginBinding
+import com.example.businesscards.startup.register.RegisterActivity
 
 class RegisterOrLoginActivity : AppCompatActivity() {
     private lateinit var binding:ActivityRegisterOrLoginBinding

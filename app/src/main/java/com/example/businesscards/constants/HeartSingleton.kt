@@ -25,7 +25,6 @@ object HeartSingleton {
     const val FireChatDB = "Chats"
     const val FireChatIdDB = "ChatID"
     const val FireCardIdDB = "CardID"
-    const val FireTokenDB = "Tokens"
     const val FireUploadsDB = "Uploads"
     const val FireCardsDB = "Cards"
     const val FireId = "id"
@@ -49,7 +48,7 @@ object HeartSingleton {
     const val FireCardMobilePhone = "mobilePhone"
     const val FireToken = "token"
     const val FireStatus = "status"
-    const val FireSeen = "seen"
+    const val FireNewMessage = "newMessage"
 
     const val AlertDialogTitle = "Field all required fields"
     const val AlertDialogLogOut = "Are you sure you want to logout ?"
