@@ -73,80 +73,6 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
         }
     }
 
-    private fun openImages() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, IMAGE_REQUEST)
-    }
-
-    private fun getFileExtension(uri: Uri): String {
-        var contentResolver: ContentResolver = this.contentResolver
-        var mimeTypeMap: MimeTypeMap = MimeTypeMap.getSingleton()
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))!!
-    }
-
-    private fun uploadImage() {
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Uploading")
-        progressDialog.show()
-
-        if (newImageUrl != null) {
-            val fileReference: StorageReference = storageReference!!.child(
-                System.currentTimeMillis().toString() + "." + getFileExtension(newImageUrl!!)
-            )
-            uploadTask = fileReference.putFile(newImageUrl!!)
-
-            uploadTask!!.continueWithTask { task ->
-                if(!task.isSuccessful){
-                    task.exception?.let {
-                        throw it
-                    }
-                }
-                fileReference.downloadUrl
-            }.addOnCompleteListener{task ->
-                if(task.isSuccessful){
-                    val downloadUri = task.result
-                    val downloadUriString = downloadUri.toString()
-                    prefs?.saveImageUrl(downloadUriString)
-                    databaseReference = FirebaseDatabase
-                        .getInstance()
-                        .getReference(HeartSingleton.FireUsersDB)
-                        .child(firebaseUser!!.uid)
-
-                    var hashMap: HashMap<String, Any> = HashMap()
-                    hashMap[HeartSingleton.FireImageUrl] = downloadUriString
-                    databaseReference?.updateChildren(hashMap)
-
-                    progressDialog.dismiss()
-                }
-                else{
-                    Toast.makeText(this, "", Toast.LENGTH_SHORT).show()
-                    progressDialog.dismiss()
-                }
-            }.addOnFailureListener{task ->
-                Toast.makeText(this, task.message, Toast.LENGTH_SHORT).show()
-                progressDialog.dismiss()
-            }
-
-
-
-        } else {
-            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            newImageUrl = data.data
-            if (uploadTask != null && uploadTask!!.isInProgress) {
-                Toast.makeText(this, "Upload in progress", Toast.LENGTH_SHORT).show()
-            } else
-                uploadImage()
-        }
-    }
 
     private fun showAlertDialog(title: String){
         val alertDialog= AlertDialog.Builder(this)
@@ -192,9 +118,6 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         intent.putExtra(HeartSingleton.IntentFlag, HeartSingleton.IntentRegister)
-
-                        // create bottom sheet fragment to upload image!
-
 
                         // save the important data into sharedPrefs
                         prefs?.setUserLoggedIn(true)

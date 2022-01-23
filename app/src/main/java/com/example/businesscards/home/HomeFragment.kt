@@ -112,7 +112,7 @@ class HomeFragment : Fragment(), BasicListener {
             binding.homeProfileUsername.text = usersName
             binding.homeProfileEmail.text = email
             if (!imageURL.isNullOrEmpty() && imageURL.equals(HeartSingleton.FireDefault))
-                binding.homeProfileImage.setImageResource(R.drawable.ic_profile)
+                binding.homeProfileImage.setImageResource(R.drawable.ic_add_a_photo)
             else
                 Picasso.get().load(imageURL).into(binding.homeProfileImage)
 
