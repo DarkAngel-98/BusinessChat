@@ -18,6 +18,7 @@ import com.example.businesscards.databinding.FragmentCommunicationBinding
 import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.interfaces.UserListener
 import com.example.businesscards.models.*
+import com.example.businesscards.notification.MyFirebaseMessagingService
 import com.example.businesscards.startup.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -108,6 +109,7 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
                         prefs?.getUsername(), message, title
                     ), user?.token!!
                 ).also {
+                    MyFirebaseMessagingService.whereToNavigate = 0
                     (activity as MainActivity).sendNotifications(it)
                 }
             } else {

@@ -28,6 +28,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     // 3) show the notification
 
     companion object {
+        var whereToNavigate = 0
+        // 0 -> UserFragment, 1-> BusinessFragment
         var prefs: SharedPreferences? = null
 
         var token: String?

@@ -19,6 +19,7 @@ import com.example.businesscards.models.BusinessCardModel
 import com.example.businesscards.models.NotificationData
 import com.example.businesscards.models.PushNotification
 import com.example.businesscards.models.UserInfo
+import com.example.businesscards.notification.MyFirebaseMessagingService
 import com.example.businesscards.startup.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -220,6 +221,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
                 prefs?.getUsername(), "", title
             ), user?.token!!
         ).also {
+            MyFirebaseMessagingService.whereToNavigate = 1
             (activity as MainActivity).sendNotifications(it)
         }
 
