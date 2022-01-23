@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/background_left_purple.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/background_right_orange.xml" value="0.2203125" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_business_card.xml" value="0.21481481481481482" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_edit.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/rounded_green_button_container.xml" value="0.1765625" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/rounded_red_button_container.xml" value="0.1765625" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/account_info_row.xml" value="0.20416666666666666" />
@@ -21,6 +23,7 @@
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_my_business_card_bottom_sheet.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_users.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/notification_layout.xml" value="1.1" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/user_row_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.17083333333333334" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/Businesscards/app/src/main/res/drawable-v24/background_right_white.xml" value="0.1375" />

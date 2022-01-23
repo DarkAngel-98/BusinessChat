@@ -16,20 +16,6 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/communication_fragment_user_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvChatUsers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_16"
-                android:layout_marginTop="@dimen/dimen_20" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/communication_fragment_chat_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -41,14 +27,30 @@
                 android:layout_alignParentTop="true"
                 android:background="@color/orange">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/communication_profile_picture"
+                <RelativeLayout
+                    android:id="@+id/profile_photo_wrapper"
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="@dimen/dimen_80"
                     android:layout_marginVertical="@dimen/dimen_10"
-                    android:layout_marginStart="@dimen/dimen_16"
-                    app:civ_border_color="@color/white"
-                    app:civ_border_width="@dimen/dimen_3" />
+                    android:layout_marginStart="@dimen/dimen_16">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/communication_profile_picture"
+                        android:layout_width="@dimen/dimen_80"
+                        android:layout_height="@dimen/dimen_80"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="@dimen/dimen_3" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/users_status"
+                        android:layout_width="@dimen/dimen_15"
+                        android:layout_height="@dimen/dimen_15"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dimen_5"
+                        android:layout_marginEnd="@dimen/dimen_5"/>
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,7 +58,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:layout_marginEnd="@dimen/dimen_16"
-                    android:layout_toEndOf="@id/communication_profile_picture"
+                    android:layout_toEndOf="@id/profile_photo_wrapper"
                     android:orientation="horizontal">
 
                     <TextView

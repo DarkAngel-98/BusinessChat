@@ -268,7 +268,9 @@ class HomeFragment : Fragment(), BasicListener {
         alertDialog.setTitle(HeartSingleton.AlertDialogLogOut)
         alertDialog.setPositiveButton("YES") { _, _ ->
             prefs?.setUserLoggedIn(false)
+            setStatus(0)
             val intent = Intent(requireContext(), StartActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             Handler(Looper.getMainLooper()).postDelayed({startActivity(intent)},500)
         }
         alertDialog.setNegativeButton("NO", DialogInterface.OnClickListener { dialogInterface, _ ->
@@ -284,6 +286,14 @@ class HomeFragment : Fragment(), BasicListener {
 
     override fun onStopped() {
         activity?.let { (activity as MainActivity).hideProgress() }
+    }
+
+    private fun setStatus(status: Int){
+        var currentUserId = firebaseUser?.uid!!
+
+        FirebaseDatabase.getInstance()
+            .getReference(HeartSingleton.FireUsersDB)
+            .child(currentUserId).child(HeartSingleton.FireStatus).setValue(status)
     }
 
 }

@@ -14,4 +14,7 @@ class UserInfo():Serializable {
     var id: String? = ""
     var imageURL: String? = ""
     var username: String? = ""
+    var token: String? = ""
+    var status: Int? = 0
 }
+// status -> 0-> user offline, 1 -> user online

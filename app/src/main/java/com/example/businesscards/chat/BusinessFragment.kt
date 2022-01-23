@@ -30,7 +30,6 @@ class BusinessFragment : Fragment(), BasicListener {
     var cardList: ArrayList<BusinessCardModel>? = null
     var prefs: PreferenceClass? = null
     var firebaseUser: FirebaseUser? = null
-//    var databaseReference: DatabaseReference? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +63,6 @@ class BusinessFragment : Fragment(), BasicListener {
 
     private fun showBusinessCards() {
         cardList = ArrayList()
-        var currentUserId = prefs?.getUserId()
 
         var databaseReference =
             FirebaseDatabase.getInstance().getReference(HeartSingleton.FireCardsDB)

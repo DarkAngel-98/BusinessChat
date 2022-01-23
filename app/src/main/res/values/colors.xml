@@ -14,5 +14,7 @@
     <color name="dark_blue">#00008B</color>
     <color name="purple">#800080</color>
     <color name="green_blue">#15E7B4</color>
+    <color name="green_status_online">#00FF00</color>
+    <color name="gray_status_offline">#888888</color>
     <color name="default_gray">#e5e5ea</color>
 </resources>

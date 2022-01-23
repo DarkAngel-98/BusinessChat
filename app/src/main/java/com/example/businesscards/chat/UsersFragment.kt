@@ -18,10 +18,8 @@ import com.example.businesscards.adapters.UsersAdapter
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.FragmentUsersBinding
-import com.example.businesscards.interfaces.APIService
 import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.interfaces.UserListener
-import com.example.businesscards.models.NotificationClient
 import com.example.businesscards.models.UserInfo
 import com.example.businesscards.startup.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -29,7 +27,6 @@ import com.google.firebase.database.*
 
 class UsersFragment : Fragment(), BasicListener, UserListener {
     private lateinit var binding: FragmentUsersBinding
-    private var chatFragment: ChatFragment = ChatFragment()
     private var businessCardFragment: MyBusinessCardBottomSheetFragment = MyBusinessCardBottomSheetFragment()
     private var usersAdapter: UsersAdapter? = null
     private var prefs: PreferenceClass? = null
@@ -110,29 +107,6 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
     override fun onStopped() {
         activity?.let { (activity as MainActivity).hideProgress() }
     }
-//    private fun openCommunicationFragment(user: UserInfo?){
-//        val bundle = bundleOf(HeartSingleton.BundleChatChat to user)
-//        communicationFragment.arguments = bundle
-//        activity?.let { (activity as MainActivity).supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.main_frame_layout, communicationFragment)
-//            .commit()
-//        }
-//    }
-
-//    private fun openBusinessCardFragment(user: UserInfo){
-//        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
-//        businessCardFragment.arguments = bundle
-//        activity?.let { (activity as MainActivity)
-//            .setNavigationPanelSelectedTab(R.id.navigate_business_cards)
-//        }
-//        activity?.let { (activity as MainActivity).supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.main_frame_layout, businessCardFragment)
-//            .commit()
-//        }
-//    }
-
     private fun openMyCard(user: UserInfo){
 
         val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)

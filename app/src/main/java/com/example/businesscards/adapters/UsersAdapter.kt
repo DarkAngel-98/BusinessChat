@@ -43,6 +43,11 @@ class UsersAdapter(
             else if(users[position].imageURL.equals(HeartSingleton.FireDefault))
                 holder.binding.usersProfilePic.setImageResource(R.drawable.ic_default_profile_picture)
 
+            if(users[position].status == 0)
+                holder.binding.usersStatus.setImageResource(R.color.gray_status_offline)
+            else if(users[position].status == 1)
+                holder.binding.usersStatus.setImageResource(R.color.green_status_online)
+
             holder.binding.userRowRootLayout.setOnClickListener {
                 userListener.onUserClicked(user)
             }

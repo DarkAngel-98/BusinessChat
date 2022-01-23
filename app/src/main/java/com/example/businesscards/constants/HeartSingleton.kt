@@ -2,7 +2,14 @@ package com.example.businesscards.constants
 
 
 object HeartSingleton {
+
+    const val BASE_URL = "https://fcm.googleapis.com"
+    const val SERVER_KEY = "AAAAqYpG56s:APA91bHIU4rlvdym9FcPsESDT_q01iEsICId0yEFdlp8Q8trpiQhUSTH2H-u2ImYxPieGODwWe8wsrBYnzEFUC0_Nh_ug7dV2simE-94k17BXfm6Z01aOatvs-bSJwKW0bS5fzIy5guD"
+    const val CONTENT_TYPE = "application/json"
+    const val TOPIC = "/topics/myTopic"
+
     const val PrefId = "Id"
+    const val PrefToken = "Token"
     const val PrefFirstName = "FirstName"
     const val PrefLastName = "LastName"
     const val PrefUsername = "Username"
@@ -40,7 +47,8 @@ object HeartSingleton {
     const val FireCardEmail = "cardEmail"
     const val FireCardCompanyName = "cardCompanyName"
     const val FireCardMobilePhone = "mobilePhone"
-    const val FireSentEd = "Sented"
+    const val FireToken = "token"
+    const val FireStatus = "status"
 
     const val AlertDialogTitle = "Field all required fields"
     const val AlertDialogLogOut = "Are you sure you want to logout ?"
