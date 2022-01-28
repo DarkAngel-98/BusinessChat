@@ -54,9 +54,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            user = arguments?.get(HeartSingleton.BundleBusinessCard) as UserInfo
-//        }
+
         prefs = PreferenceClass(requireActivity())
         auth = FirebaseAuth.getInstance()
 
@@ -93,10 +91,20 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
         card.cardEmail = prefs?.getUserEmail()
         card.mobilePhone = prefs?.getMobilePhone()
 
+        card.jobPosition = prefs?.getJobPosition()
+        card.yearsOfExperience = prefs?.getYearsOfExperience()
+        card.interests = prefs?.getInterests()
+        card.linkedInProfile = prefs?.getLinkedinProfile()
+
         binding.myCardFullName.text = prefs?.getFirstName() + "\n" + prefs?.getLastName()
         binding.myCardCompanyName.setText(prefs?.getCompanyName())
         binding.myCardEmail.setText(prefs?.getUserEmail())
         binding.myCardMobilePhone.setText(prefs?.getMobilePhone())
+
+        binding.myCardJobPosition.setText(prefs?.getJobPosition())
+        binding.myCardYearsOfExperience.setText(prefs?.getYearsOfExperience().toString())
+        binding.myCardInterests.setText(prefs?.getInterests())
+        binding.myCardLinkedInProfile.setText(prefs?.getLinkedinProfile())
 
         if(prefs?.getImageUrl() != null)
             Picasso.get().load(prefs?.getImageUrl()).into(binding.myCardProfilePicture)
@@ -107,24 +115,43 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
 
     private fun setupListeners(){
         binding.myCardEditDoneBtn.setOnClickListener {
-            if(binding.myCardEditDoneBtnText.text.equals("Edit")) {
-                binding.myCardEditDoneBtnText.text = "Done"
+            if(binding.myCardEditDoneBtnText.text.equals("edit")) {
+                binding.myCardEditDoneBtnText.text = "done"
                 editBasicInfoEnabled()
                 binding.myCardSendBtn.visibility = View.GONE
+                binding.additionalInfo.visibility = View.VISIBLE
             }
-            else if(binding.myCardEditDoneBtnText.text.equals("Done")){
+            else if(binding.myCardEditDoneBtnText.text.equals("done")){
                 var cName = binding.myCardCompanyName.text.toString()
                 var cMail = binding.myCardEmail.text.toString()
                 var cPhone = binding.myCardMobilePhone.text.toString()
+
+                var cJobPosition = binding.myCardJobPosition.text.toString()
+                var cYearsOfExperience = binding.myCardYearsOfExperience.text.toString()
+                var cInterests = binding.myCardInterests.text.toString()
+                var cLinkedin = binding.myCardLinkedInProfile.text.toString()
+
+                card.jobPosition = cJobPosition
+                card.yearsOfExperience = cYearsOfExperience.toInt()
+                card.interests = cInterests
+                card.linkedInProfile = cLinkedin
+
                 if(cName.isNotEmpty() && cMail.isNotEmpty() && cPhone.isNotEmpty()){
-                    binding.myCardEditDoneBtnText.text = "Edit"
+                    binding.myCardEditDoneBtnText.text = "edit"
                     editBasicInfoDisabled()
                     binding.myCardSendBtn.visibility = View.VISIBLE
-                    updateDatabase(cName, cMail, cPhone)
+                    binding.additionalInfo.visibility = View.GONE
 
                     prefs?.saveCompanyName(cName)
                     prefs?.saveUserEmail(cMail)
                     prefs?.saveMobilePhone(cPhone)
+                    prefs?.saveJobPosition(cJobPosition)
+                    prefs?.saveYearsOfExperience(cYearsOfExperience.toInt())
+                    prefs?.saveInterests(cInterests)
+                    prefs?.saveLinkedinProfile(cLinkedin)
+
+                    updateUser(cName, cMail, cPhone)
+
                 }
                 else{
                     showAlertDialog(HeartSingleton.AlertDialogTitle)
@@ -135,40 +162,66 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
             var senderId = prefs?.getUserId()!!
             var receiverId = user?.id!!
 //            onStarted()
+
             sendBusinessCard(senderId, receiverId, card)
 
         }
     }
 
     private fun editBasicInfoEnabled(){
+
         binding.myCardCompanyName.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_edit, 0)
         binding.myCardEmail.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_edit, 0)
         binding.myCardMobilePhone.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_edit, 0)
+        binding.myCardJobPosition.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_edit, 0)
+        binding.myCardYearsOfExperience.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_edit, 0)
+        binding.myCardInterests.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_edit, 0)
+        binding.myCardLinkedInProfile.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_edit, 0)
 
         binding.myCardCompanyName.isFocusableInTouchMode = true
         binding.myCardEmail.isFocusableInTouchMode = true
         binding.myCardMobilePhone.isFocusableInTouchMode = true
+        binding.myCardJobPosition.isFocusableInTouchMode = true
+        binding.myCardYearsOfExperience.isFocusableInTouchMode = true
+        binding.myCardInterests.isFocusableInTouchMode = true
+        binding.myCardLinkedInProfile.isFocusableInTouchMode = true
 
         binding.myCardCompanyName.imeOptions = EditorInfo.IME_ACTION_DONE
         binding.myCardEmail.imeOptions = EditorInfo.IME_ACTION_DONE
         binding.myCardMobilePhone.imeOptions = EditorInfo.IME_ACTION_DONE
+        binding.myCardJobPosition.imeOptions = EditorInfo.IME_ACTION_DONE
+        binding.myCardYearsOfExperience.imeOptions = EditorInfo.IME_ACTION_DONE
+        binding.myCardInterests.imeOptions = EditorInfo.IME_ACTION_DONE
+        binding.myCardLinkedInProfile.imeOptions = EditorInfo.IME_ACTION_DONE
     }
 
     private fun editBasicInfoDisabled(){
         binding.myCardCompanyName.setCompoundDrawablesWithIntrinsicBounds(0,0,0, 0)
         binding.myCardEmail.setCompoundDrawablesWithIntrinsicBounds(0,0,0, 0)
         binding.myCardMobilePhone.setCompoundDrawablesWithIntrinsicBounds(0,0,0, 0)
+        binding.myCardJobPosition.setCompoundDrawablesWithIntrinsicBounds(0,0,0, 0)
+        binding.myCardYearsOfExperience.setCompoundDrawablesWithIntrinsicBounds(0,0,0, 0)
+        binding.myCardInterests.setCompoundDrawablesWithIntrinsicBounds(0,0,0, 0)
+        binding.myCardLinkedInProfile.setCompoundDrawablesWithIntrinsicBounds(0,0,0, 0)
 
         binding.myCardCompanyName.isFocusableInTouchMode = false
         binding.myCardEmail.isFocusableInTouchMode = false
         binding.myCardMobilePhone.isFocusableInTouchMode = false
+        binding.myCardJobPosition.isFocusableInTouchMode = false
+        binding.myCardYearsOfExperience.isFocusableInTouchMode = false
+        binding.myCardInterests.isFocusableInTouchMode = false
+        binding.myCardLinkedInProfile.isFocusableInTouchMode = false
 
         binding.myCardCompanyName.clearFocus()
         binding.myCardEmail.clearFocus()
         binding.myCardMobilePhone.clearFocus()
+        binding.myCardJobPosition.clearFocus()
+        binding.myCardYearsOfExperience.clearFocus()
+        binding.myCardInterests.clearFocus()
+        binding.myCardLinkedInProfile.clearFocus()
     }
 
-    private fun updateDatabase(compName: String, mail: String, phone: String){
+    private fun updateUser(compName: String, mail: String, phone: String){
         var currentUserId = firebaseUser?.uid!!
 
             FirebaseDatabase.getInstance()
@@ -182,7 +235,6 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
         FirebaseDatabase.getInstance()
             .getReference(HeartSingleton.FireUsersDB)
             .child(currentUserId).child(HeartSingleton.FireMobilePhone).setValue(phone)
-
     }
     private fun showAlertDialog(title: String){
         val alertDialog = AlertDialog.Builder(requireContext())
@@ -198,13 +250,21 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
         databaseReference = FirebaseDatabase.getInstance().reference
 
         var hashMap: HashMap<String, Any> = HashMap()
+
         hashMap[HeartSingleton.FireSenderId] = senderId
         hashMap[HeartSingleton.FireReceiverId] = receiverId
+
         hashMap[HeartSingleton.FireCardImageUrl] = card.cardImageUrl!!
         hashMap[HeartSingleton.FireCardFullName] = card.cardFullName!!
         hashMap[HeartSingleton.FireCardCompanyName] = card.cardCompanyName!!
         hashMap[HeartSingleton.FireCardEmail] = card.cardEmail!!
         hashMap[HeartSingleton.FireCardMobilePhone] = card.mobilePhone!!
+
+        hashMap[HeartSingleton.FireCardJobPosition] = card.jobPosition!!
+        hashMap[HeartSingleton.FireCardYearsOfExperience] = card.yearsOfExperience!!
+        hashMap[HeartSingleton.FireCardInterests] = card.interests!!
+        hashMap[HeartSingleton.FireCardLinkedProfile] = card.linkedInProfile!!
+        hashMap[HeartSingleton.FireCardColor] = card.cardColor!!
 
         databaseReference.child(HeartSingleton.FireCardsDB).push().setValue(hashMap)
 

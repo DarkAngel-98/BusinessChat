@@ -74,6 +74,35 @@ class PreferenceClass(context: Context) {
     fun getCompanyName(): String {
         return prefs.getString(HeartSingleton.PrefCompanyName, "")!!
     }
+
+    fun saveJobPosition(jobPosition: String) {
+        prefs.edit().putString(HeartSingleton.PrefJobPosition, jobPosition).apply()
+    }
+    fun getJobPosition(): String {
+        return prefs.getString(HeartSingleton.PrefJobPosition, "")!!
+    }
+
+    fun saveYearsOfExperience(experience: Int) {
+        prefs.edit().putInt(HeartSingleton.PrefYearsOfExperience, experience).apply()
+    }
+    fun getYearsOfExperience(): Int {
+        return prefs.getInt(HeartSingleton.PrefYearsOfExperience, -1)
+    }
+
+    fun saveInterests(interests: String) {
+        prefs.edit().putString(HeartSingleton.PrefInterests, interests).apply()
+    }
+    fun getInterests(): String {
+        return prefs.getString(HeartSingleton.PrefInterests, "")!!
+    }
+
+    fun saveLinkedinProfile(linkedinProfile: String) {
+        prefs.edit().putString(HeartSingleton.PrefLinkedinProfile, linkedinProfile).apply()
+    }
+    fun getLinkedinProfile(): String {
+        return prefs.getString(HeartSingleton.PrefLinkedinProfile, "")!!
+    }
+
     fun saveHomeAddress(homeAddress: String) {
         prefs.edit().putString(HeartSingleton.PrefHomeAddress, homeAddress).apply()
     }

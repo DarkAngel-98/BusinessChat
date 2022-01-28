@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/my_business_card"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16"
         android:layout_marginVertical="@dimen/dimen_10"
         android:background="@drawable/card_view_background_orange"
@@ -24,7 +24,6 @@
             android:layout_height="@dimen/dimen_80"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_20"
-            android:src="@color/green_blue"
             app:civ_border_color="@color/white_both"
             app:civ_border_width="@dimen/dimen_1" />
 
@@ -74,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/static_company_name"
-            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dimen_10"
             android:ellipsize="end"
             android:maxLines="1"
@@ -85,23 +84,22 @@
             style="@style/text_dark_blue_18sp_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/business_company_name"
+            android:layout_below="@+id/static_mail"
             android:layout_centerHorizontal="true"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_10"
-            android:layout_toEndOf="@+id/static_mail"
             android:background="@android:color/transparent"
             android:ellipsize="end"
-            android:text="@{cardItem.cardEmail}"
             android:focusableInTouchMode="false"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:text="@{cardItem.cardEmail}" />
 
         <TextView
             android:id="@+id/static_mobile_phone"
             style="@style/text_white_both_18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/static_mail"
+            android:layout_below="@+id/business_email"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_10"
             android:ellipsize="end"
@@ -123,6 +121,113 @@
             android:text="@{cardItem.mobilePhone}"
             android:focusableInTouchMode="false"
             android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/static_job_position"
+            style="@style/text_white_both_18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/static_mobile_phone"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/job_position" />
+
+        <TextView
+            android:id="@+id/business_job_position"
+            style="@style/text_dark_blue_18sp_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_toEndOf="@+id/static_job_position"
+            android:layout_below="@+id/business_phone"
+            android:background="@android:color/transparent"
+            android:text="@{cardItem.jobPosition}"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/static_years_of_experience"
+            style="@style/text_white_both_18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/static_job_position"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/years_of_experience" />
+
+        <TextView
+            android:id="@+id/business_years_of_experience"
+            style="@style/text_dark_blue_18sp_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/business_job_position"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_toEndOf="@+id/static_years_of_experience"
+            android:background="@android:color/transparent"
+            android:text="@{cardItem.yearsOfExperience.toString()}"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/static_interests"
+            style="@style/text_white_both_18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/static_years_of_experience"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/interests" />
+
+        <TextView
+            android:id="@+id/business_interests"
+            style="@style/text_dark_blue_18sp_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/static_interests"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{cardItem.interests}" />
+
+        <TextView
+            android:id="@+id/static_linked_in"
+            style="@style/text_white_both_18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/business_interests"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/linked_in_profile" />
+
+        <TextView
+            android:id="@+id/business_linked_in_profile"
+            style="@style/text_dark_blue_18sp_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/static_linked_in"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:text="@{cardItem.linkedInProfile}"
+            android:maxLines="2" />
 
     </RelativeLayout>
 
