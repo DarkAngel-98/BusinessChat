@@ -27,7 +27,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
+import yuku.ambilwarna.AmbilWarnaDialog
+import java.lang.reflect.Type
 
 
 class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicListener {
@@ -42,11 +46,13 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
 
     companion object{
         private const val TAG = "businessCardBottomSheetFragmentTag"
+        var defaultColor = R.color.orange
 
         fun showBusinessCard(user: UserInfo, requireActivity: FragmentActivity) =
             MyBusinessCardBottomSheetFragment().apply {
             arguments = bundleOf(HeartSingleton.BundleBusinessCard to user)
             }.show(requireActivity.supportFragmentManager, TAG)
+
 
 
     }
@@ -84,6 +90,9 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
             isFitToContents = false
             state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
+
+        binding.myBusinessCard.setBackgroundColor(defaultColor)
+        binding.myCardSendBtn.setBackgroundColor(defaultColor)
 
         card.cardImageUrl = prefs?.getImageUrl()
         card.cardFullName = prefs?.getFirstName() + " " + prefs?.getLastName()
@@ -161,11 +170,35 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
         binding.myCardSendBtn.setOnClickListener {
             var senderId = prefs?.getUserId()!!
             var receiverId = user?.id!!
-//            onStarted()
+            var toWhomISentCard: ArrayList<String>? = retrieveReceiversIds()
 
-            sendBusinessCard(senderId, receiverId, card)
-
+            if (toWhomISentCard != null) {
+                for(everySingleReceiverId in toWhomISentCard)
+                    if(everySingleReceiverId == receiverId){
+                        showDuplicateCardsDialog(HeartSingleton.AlertDialogAlreadySentCard, senderId, receiverId, card)
+                        break
+                    }
+            }
+            else{
+                sendBusinessCard(senderId, receiverId, card)
+            }
         }
+        binding.colorPickerBtn.setOnClickListener {
+            openColorPicker()
+        }
+    }
+
+    private fun showDuplicateCardsDialog(title: String, senderId: String, receiverId: String, card: BusinessCardModel){
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle(title)
+        alertDialog.setPositiveButton("Send Again") { _, _ ->
+            sendBusinessCard(senderId, receiverId, card)
+        }
+        alertDialog.setNegativeButton("Dismiss") { dialogInterface, _ ->
+            dialogInterface.cancel()
+        }
+        alertDialog.create()
+        alertDialog.show()
     }
 
     private fun editBasicInfoEnabled(){
@@ -236,6 +269,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
             .getReference(HeartSingleton.FireUsersDB)
             .child(currentUserId).child(HeartSingleton.FireMobilePhone).setValue(phone)
     }
+
     private fun showAlertDialog(title: String){
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle(title)
@@ -264,7 +298,9 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
         hashMap[HeartSingleton.FireCardYearsOfExperience] = card.yearsOfExperience!!
         hashMap[HeartSingleton.FireCardInterests] = card.interests!!
         hashMap[HeartSingleton.FireCardLinkedProfile] = card.linkedInProfile!!
-        hashMap[HeartSingleton.FireCardColor] = card.cardColor!!
+        hashMap[HeartSingleton.FireCardColor] = defaultColor
+
+        saveReceiverIdForCard(receiverId)
 
         databaseReference.child(HeartSingleton.FireCardsDB).push().setValue(hashMap)
 
@@ -281,7 +317,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
                 prefs?.getUsername(), "", title
             ), user?.token!!
         ).also {
-            MyFirebaseMessagingService.whereToNavigate = 1
+            //MyFirebaseMessagingService().whereToNavigate = HeartSingleton.IntentToBusinessCard
             (activity as MainActivity).sendNotifications(it)
         }
 
@@ -299,6 +335,45 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
 
         })
         dialog?.dismiss()
+    }
+
+    private fun saveReceiverIdForCard(receiverId: String){
+        val gson = Gson()
+        var retrievedCardIds: ArrayList<String>? = retrieveReceiversIds()
+        if(retrievedCardIds.isNullOrEmpty()){
+            retrievedCardIds = ArrayList()
+            retrievedCardIds.add(receiverId)
+        }
+        else {
+            retrievedCardIds.add(receiverId)
+        }
+        val cardsIntoString = gson.toJson(retrievedCardIds)
+        prefs?.saveToWhomYouSentBusinessCard(cardsIntoString)
+        onStopped()
+    }
+
+    private fun retrieveReceiversIds(): ArrayList<String>?{
+        val retrievedBusinessCardIds = prefs?.getListToWhomYouSentBusinessCard()
+        var retrievedCardIds: ArrayList<String>? = ArrayList()
+        val gson = Gson()
+        val type: Type = object: TypeToken<ArrayList<String>>() {}.type
+        retrievedCardIds = Gson().fromJson(retrievedBusinessCardIds, type)
+
+        return retrievedCardIds
+    }
+
+    private fun openColorPicker(){
+
+        AmbilWarnaDialog(requireContext(), defaultColor, object: AmbilWarnaDialog.OnAmbilWarnaListener{
+            override fun onCancel(dialog: AmbilWarnaDialog?) {
+                // Not needed
+            }
+            override fun onOk(dialog: AmbilWarnaDialog?, color: Int) {
+                defaultColor = color
+                binding.myBusinessCard.setBackgroundColor(color)
+                binding.myCardSendBtn.setBackgroundColor(color)
+            }
+        }).show()
     }
 
     override fun onStarted() {

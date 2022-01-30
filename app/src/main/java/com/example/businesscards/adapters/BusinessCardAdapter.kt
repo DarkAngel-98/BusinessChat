@@ -1,9 +1,12 @@
 package com.example.businesscards.adapters
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.businesscards.R
 import com.example.businesscards.databinding.BusinessCardRowLayoutBinding
 import com.example.businesscards.interfaces.BusinessCardListener
 import com.example.businesscards.models.BusinessCardModel
@@ -32,6 +35,7 @@ class BusinessCardAdapter(
         return MyViewHolder(userItemBinding)
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val card = cards[position]
         card.let {
@@ -52,16 +56,19 @@ class BusinessCardAdapter(
             holder.binding.businessInterests.text = card.interests
             holder.binding.businessLinkedInProfile.text = card.linkedInProfile
 
-            if(holder.binding.businessLinkedInProfile.text.isNotEmpty()){
+            if (card.cardImageUrl != null && card.cardImageUrl!!.isNotEmpty())
+                Picasso.get().load(card.cardImageUrl).into(holder.binding.businessImage)
 
+            if(card.cardColor != null && card.cardColor != 0){
+                holder.binding.root.setBackgroundColor(card.cardColor!!)
+            }
+
+            if(holder.binding.businessLinkedInProfile.text.isNotEmpty()){
                 holder.binding.businessLinkedInProfile.setOnClickListener {
                     linkedInListener.linkedInListener(holder.binding.businessLinkedInProfile.text.toString())
 
                 }
             }
-
-            if (card.cardImageUrl != null && card.cardImageUrl!!.isNotEmpty())
-                Picasso.get().load(card.cardImageUrl).into(holder.binding.businessImage)
         }
     }
 

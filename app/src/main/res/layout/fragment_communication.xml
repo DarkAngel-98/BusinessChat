@@ -49,7 +49,7 @@
                         android:id="@+id/communication_profile_picture"
                         android:layout_width="@dimen/dimen_80"
                         android:layout_height="@dimen/dimen_80"
-                        app:civ_border_color="@color/white"
+                        app:civ_border_color="@color/white_both"
                         app:civ_border_width="@dimen/dimen_3" />
 
                     <de.hdodenhof.circleimageview.CircleImageView

@@ -25,6 +25,7 @@ object HeartSingleton {
     const val PrefLogged = "Logged"
     const val PrefImageURL = "ImageURL"
     const val PrefImportantCards = "ImportantCards"
+    const val PrefToWhomYouSentCard = "ToWhomYouSentCard"
 
     const val FireUsersDB = "Users"
     const val FireChatDB = "Chats"
@@ -62,7 +63,7 @@ object HeartSingleton {
 
     const val AlertDialogTitle = "Field all required fields"
     const val AlertDialogLogOut = "Are you sure you want to logout ?"
-    const val AlertDialogCardOrChat = "Send business card or chat"
+    const val AlertDialogAlreadySentCard = "You already sent card to this user"
     const val AlertDialogSave = "Save"
     const val AlertDialogDelete = "Delete"
     const val AlertDialogOK = "OK"
@@ -70,10 +71,16 @@ object HeartSingleton {
     const val IntentRegister = "FromRegister"
     const val IntentLogin = "FromLogin"
     const val IntentFlag = "IntentFlag"
+    const val IntentNotification = "IntentNotification"
+    const val IntentToUsersProfile = "IntentUsersProfile"
+    const val IntentToBusinessCard = "IntentBusinessCard"
 
     const val BundleChatChat = "BundleChatChat"
     const val BundleBusinessCard = "BundleBusinessCard"
     const val BundleUserId = "userId"
+
+    //var whereToNavigate = 0
+
 
 
 

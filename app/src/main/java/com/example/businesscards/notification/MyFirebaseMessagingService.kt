@@ -12,12 +12,14 @@ import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.lifecycle.LiveData
 import com.example.businesscards.R
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.startup.MainActivity
+import com.google.firebase.auth.UserInfo
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import kotlin.random.Random
+import kotlin.properties.Delegates
 
 private const val CHANNEL_ID = "MY_CHANNEL"
 
@@ -28,7 +30,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     // 3) show the notification
 
     companion object {
-        var whereToNavigate = 0
+        // var whereToNavigate
         // 0 -> UserFragment, 1-> BusinessFragment
         var prefs: SharedPreferences? = null
 
@@ -47,10 +49,12 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         token = newToken
     }
 
+    //var whereToNavigate: String = ""
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
         val intent = Intent(this, MainActivity::class.java)
+        //intent.putExtra(HeartSingleton.IntentNotification, whereToNavigate)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = 1234
 
@@ -77,6 +81,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_HIGH).apply {
             description = "My channel description"
             enableLights(true)
+            shouldVibrate()
             lightColor = Color.BLUE
         }
         notificationManager.createNotificationChannel(channel)

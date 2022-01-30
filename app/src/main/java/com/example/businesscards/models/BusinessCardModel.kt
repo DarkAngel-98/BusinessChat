@@ -14,5 +14,5 @@ open class BusinessCardModel {
     var yearsOfExperience: Int? = 0
     var interests: String? = ""
     var linkedInProfile: String? = ""
-    var cardColor: String? = "#121212"
+    var cardColor: Int? = 0
 }

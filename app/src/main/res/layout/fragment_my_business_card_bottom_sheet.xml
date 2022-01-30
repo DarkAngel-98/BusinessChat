@@ -61,6 +61,23 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dimen_5"
                     android:text="@string/edit_btn" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/color_picker_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_card_edit_done_btn"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginEnd="@dimen/dimen_16">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimen_10"
+                    android:src="@drawable/ic_color_picker" />
             </RelativeLayout>
 
             <TextView
@@ -128,8 +145,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/static_mail"
                 android:layout_marginStart="@dimen/dimen_16"
-                android:layout_marginBottom="@dimen/dimen_10"
                 android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_10"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/mobile_phone" />
@@ -155,19 +172,20 @@
                 android:id="@+id/additional_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_below="@+id/static_mobile_phone"
-                android:layout_marginBottom="@dimen/dimen_20">
-            <TextView
-                android:id="@+id/static_job_position"
-                style="@style/text_white_both_18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_16"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@string/job_position" />
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/static_job_position"
+                    style="@style/text_white_both_18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/job_position" />
 
                 <EditText
                     android:id="@+id/my_card_job_position"

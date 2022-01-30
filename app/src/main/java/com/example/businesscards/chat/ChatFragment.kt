@@ -118,10 +118,8 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
                 var title = "New Message"
                 PushNotification(
                     NotificationData(
-                        prefs?.getUsername(), message, title
-                    ), user?.token!!
-                ).also {
-                    MyFirebaseMessagingService.whereToNavigate = 0
+                        prefs?.getUsername(), message, title), user?.token!!).also {
+                    //MyFirebaseMessagingService().whereToNavigate = HeartSingleton.IntentToUsersProfile
                     (activity as MainActivity).sendNotifications(it)
                 }
             } else {

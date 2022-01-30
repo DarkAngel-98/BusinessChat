@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity(), BasicListener {
     private lateinit var binding: ActivityMainBinding
     private var progressBar: ProgressBar? = null
-    private var tmpIntent: String? = null
+    private var chatOrCardIntent: String? = null
     private var navController: NavController? = null
     var firebaseUser: FirebaseUser? = null
     private lateinit var auth: FirebaseAuth
@@ -52,9 +52,6 @@ class MainActivity : AppCompatActivity(), BasicListener {
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser
 
-        tmpIntent = intent.getStringExtra(HeartSingleton.IntentFlag).toString()
-        if (!tmpIntent.isNullOrEmpty())
-            Log.d("KEY", tmpIntent!!)
         progressBar = binding.homeProgressBar
         hideActionBarTitle()
         FirebaseMessaging.getInstance().subscribeToTopic(HeartSingleton.TOPIC)
@@ -62,6 +59,13 @@ class MainActivity : AppCompatActivity(), BasicListener {
         navController = navHost.navController
         binding.mainBottomNavigationPanel.setupWithNavController(navController!!)
         setStatus(1)
+
+//        chatOrCardIntent = intent.getStringExtra(HeartSingleton.IntentNotification)
+//        when (chatOrCardIntent) {
+//            HeartSingleton.IntentToUsersProfile -> navigateToUsersFragment()
+//            HeartSingleton.IntentToBusinessCard -> navigateToCardFragment()
+//            else -> navigateToHomeFragment()
+//        }
     }
 
     fun sendNotifications(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
@@ -128,7 +132,6 @@ class MainActivity : AppCompatActivity(), BasicListener {
     fun showNavigationPanel(){
         binding.mainBottomNavigationPanel.visibility = View.VISIBLE
     }
-
     override fun onPause() {
         super.onPause()
         setStatus(0)
@@ -137,6 +140,17 @@ class MainActivity : AppCompatActivity(), BasicListener {
     override fun onResume() {
         super.onResume()
         setStatus(1)
+    }
+
+    private fun navigateToUsersFragment(){
+        navController?.navigate(R.id.usersFragment, null)
+    }
+    private fun navigateToCardFragment(){
+        navController?.navigate(R.id.businessFragment, null)
+    }
+
+    private fun navigateToHomeFragment(){
+        navController?.navigate(R.id.homeFragment, null)
     }
 
     override fun onStarted() {

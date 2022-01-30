@@ -138,4 +138,12 @@ class PreferenceClass(context: Context) {
         return prefs.getString(HeartSingleton.PrefImportantCards, "")
     }
 
+    fun saveToWhomYouSentBusinessCard(toWhomYouSentCard: String){
+        prefs.edit().putString(HeartSingleton.PrefToWhomYouSentCard, toWhomYouSentCard).apply()
+    }
+
+    fun getListToWhomYouSentBusinessCard(): String?{
+        return prefs.getString(HeartSingleton.PrefToWhomYouSentCard, "")
+    }
+
 }
