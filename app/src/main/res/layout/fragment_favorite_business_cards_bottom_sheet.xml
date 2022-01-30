@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.businesscards.home.FavoriteBusinessCardsBottomSheetFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.FavoriteBusinessCardsBottomSheetFragment">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_10"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginStart="@dimen/dimen_16"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFavoriteCards"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/back_btn"
+            android:layout_marginTop="@dimen/dimen_20"/>
+
+        <TextView
+            android:id="@+id/no_favorite_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_favorite_cards"
+            android:visibility="gone"
+            style="@style/text_orange_18sp"/>
+
+
+
+    </RelativeLayout>
+</layout>

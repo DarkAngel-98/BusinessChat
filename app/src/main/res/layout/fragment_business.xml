@@ -31,8 +31,7 @@
             android:id="@+id/rvAllBusinessCards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/custom_toolbar"
-            android:layout_marginHorizontal="@dimen/dimen_16" />
+            android:layout_below="@+id/custom_toolbar"/>
 
     </RelativeLayout>
 

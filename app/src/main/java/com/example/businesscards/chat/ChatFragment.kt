@@ -2,10 +2,13 @@ package com.example.businesscards.chat
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +33,8 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
     private lateinit var binding: FragmentCommunicationBinding
     private var user: UserInfo? = null
     private var prefs: PreferenceClass? = null
+    private var businessCardFragment: MyBusinessCardBottomSheetFragment =
+        MyBusinessCardBottomSheetFragment()
     var firebaseUser: FirebaseUser? = null
     var databaseReference: DatabaseReference? = null
     var messagesAdapter: MessagesAdapter? = null
@@ -87,13 +92,21 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
                 binding.communicationProfilePicture.setImageResource(R.drawable.ic_default_profile_picture)
 
             readMessages()
-            setupListeners()
+            setupListeners(user!!)
         }
     }
 
-    private fun setupListeners() {
+    private fun setupListeners(user: UserInfo) {
         binding.sendMessage.setOnClickListener {
             binding.rvChat.scrollToPosition(binding.rvChat.adapter!!.itemCount - 1)
+        }
+
+        binding.backBtn.setOnClickListener {
+            activity?.let { (activity as MainActivity).onBackPressed() }
+        }
+
+        binding.iconStar.setOnClickListener {
+            Handler(Looper.getMainLooper()).postDelayed({ openMyCard(user) }, 500)
         }
         binding.iconSend.setOnClickListener {
             var message = binding.sendMessage.text.toString()
@@ -210,6 +223,14 @@ class ChatFragment : Fragment(), BasicListener, UserListener {
             }
 
         })
+    }
+
+    private fun openMyCard(user: UserInfo) {
+
+        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
+        businessCardFragment.arguments = bundle
+        MyBusinessCardBottomSheetFragment.showBusinessCard(user, requireActivity())
+
     }
 
 

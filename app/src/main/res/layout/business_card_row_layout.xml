@@ -224,6 +224,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginBottom="@dimen/dimen_20"
             android:background="@android:color/transparent"
             android:ellipsize="end"
             android:text="@{cardItem.linkedInProfile}"

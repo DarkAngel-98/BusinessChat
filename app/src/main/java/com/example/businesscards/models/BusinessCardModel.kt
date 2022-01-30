@@ -1,6 +1,6 @@
 package com.example.businesscards.models
 
-class BusinessCardModel {
+open class BusinessCardModel {
     var receiverId: String? = ""
     var senderId: String? = ""
 

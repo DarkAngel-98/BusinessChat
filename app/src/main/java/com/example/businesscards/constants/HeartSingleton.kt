@@ -24,6 +24,7 @@ object HeartSingleton {
     const val PrefHomeAddress = "HomeAddress"
     const val PrefLogged = "Logged"
     const val PrefImageURL = "ImageURL"
+    const val PrefImportantCards = "ImportantCards"
 
     const val FireUsersDB = "Users"
     const val FireChatDB = "Chats"
@@ -62,7 +63,9 @@ object HeartSingleton {
     const val AlertDialogTitle = "Field all required fields"
     const val AlertDialogLogOut = "Are you sure you want to logout ?"
     const val AlertDialogCardOrChat = "Send business card or chat"
-    const val AlertDialogSuccessfullyUpdated = "Database is successfully updated"
+    const val AlertDialogSave = "Save"
+    const val AlertDialogDelete = "Delete"
+    const val AlertDialogOK = "OK"
 
     const val IntentRegister = "FromRegister"
     const val IntentLogin = "FromLogin"

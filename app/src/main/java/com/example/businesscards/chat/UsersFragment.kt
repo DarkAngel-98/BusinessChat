@@ -124,31 +124,38 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
         activity?.let { (activity as MainActivity).hideProgress() }
     }
 
-    private fun openMyCard(user: UserInfo) {
+//    private fun openMyCard(user: UserInfo) {
+//
+//        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
+//        businessCardFragment.arguments = bundle
+//        MyBusinessCardBottomSheetFragment.showBusinessCard(user, requireActivity())
+//
+//    }
 
-        val bundle = bundleOf(HeartSingleton.BundleBusinessCard to user)
-        businessCardFragment.arguments = bundle
-        MyBusinessCardBottomSheetFragment.showReportComment(user, requireActivity())
+    private fun openChat(user: UserInfo){
+        if(user.newMessage == 1)
+            Handler(Looper.getMainLooper()).postDelayed({ setNewMessage(0, user) }, 200)
 
+        Handler(Looper.getMainLooper()).postDelayed({ navigateToChatFragment(user) }, 500)
     }
 
-    private fun showAlertDialog(title: String, user: UserInfo) {
-        val alertDialog = AlertDialog.Builder(requireContext())
-        alertDialog.setTitle(title)
-        alertDialog.setPositiveButton("Card") { _, _ ->
-            Handler(Looper.getMainLooper()).postDelayed({ openMyCard(user) }, 500)
-        }
-
-        alertDialog.setNegativeButton("Chat") { _, _ ->
-            if(user.newMessage == 1)
-                Handler(Looper.getMainLooper()).postDelayed({ setNewMessage(0, user) }, 200)
-
-            Handler(Looper.getMainLooper()).postDelayed({ navigateToChatFragment(user) }, 500)
-        }
-
-        alertDialog.create()
-        alertDialog.show()
-    }
+//    private fun showAlertDialog(title: String, user: UserInfo) {
+//        val alertDialog = AlertDialog.Builder(requireContext())
+//        alertDialog.setTitle(title)
+//        alertDialog.setPositiveButton("Card") { _, _ ->
+//            Handler(Looper.getMainLooper()).postDelayed({ openMyCard(user) }, 500)
+//        }
+//
+//        alertDialog.setNegativeButton("Chat") { _, _ ->
+//            if(user.newMessage == 1)
+//                Handler(Looper.getMainLooper()).postDelayed({ setNewMessage(0, user) }, 200)
+//
+//            Handler(Looper.getMainLooper()).postDelayed({ navigateToChatFragment(user) }, 500)
+//        }
+//
+//        alertDialog.create()
+//        alertDialog.show()
+//    }
 
     private fun setNewMessage(newMessage: Int, user: UserInfo){
         FirebaseDatabase.getInstance()
@@ -162,6 +169,6 @@ class UsersFragment : Fragment(), BasicListener, UserListener {
     }
 
     override fun onUserClicked(user: UserInfo) {
-        showAlertDialog(HeartSingleton.AlertDialogCardOrChat, user)
+        openChat(user)
     }
 }

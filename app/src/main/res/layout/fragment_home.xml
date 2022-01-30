@@ -27,6 +27,16 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/home" />
+
+            <ImageView
+                android:id="@+id/favorite_cards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimen_16"
+                android:padding="@dimen/dimen_10"/>
         </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -78,8 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:text="Darko" />
+                    android:layout_marginTop="@dimen/dimen_10"/>
 
                 <TextView
                     android:id="@+id/home_profile_email"
@@ -87,8 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:text="DarkoAngelovskiTop" />
+                    android:layout_marginTop="@dimen/dimen_10"/>
 
             </LinearLayout>
 

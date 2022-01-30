@@ -3,6 +3,7 @@ package com.example.businesscards.constants
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import com.example.businesscards.models.BusinessCardModel
 
 class PreferenceClass(context: Context) {
     private val appContext = context.applicationContext
@@ -127,6 +128,14 @@ class PreferenceClass(context: Context) {
     }
     fun deleteUserEmail(){
         prefs.edit().remove(HeartSingleton.PrefEmail).apply()
+    }
+
+    fun saveImportantCards(importantCardList: String){
+        prefs.edit().putString(HeartSingleton.PrefImportantCards, importantCardList).apply()
+    }
+
+    fun getImportantCards(): String?{
+        return prefs.getString(HeartSingleton.PrefImportantCards, "")
     }
 
 }

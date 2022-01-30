@@ -27,6 +27,8 @@
     <string name="job_position">job position: </string>
     <string name="years_of_experience">years of experience: </string>
     <string name="interests">interests: </string>
+    <string name="no_cards_received">No cards received</string>
+    <string name="no_favorite_cards">No favorite cards</string>
     <string name="linked_in_profile">LinkedIn profile: </string>
     <string name="enterYourMobilePhone">Enter your mobile phone</string>
     <string name="enterYourCompanyName">Enter your company name</string>

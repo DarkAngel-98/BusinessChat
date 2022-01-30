@@ -7,11 +7,14 @@
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/background_right_orange.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_add_a_photo.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_add_circle.xml" value="0.2203125" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_arrow_back.xml" value="0.2203125" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_arrow_back_white_both.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_baseline_connect_without_contact_24.xml" value="0.2046875" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_business_card.xml" value="0.21481481481481482" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_edit.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_message_unread.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_profile.xml" value="0.2203125" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_star.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/ic_users.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/round_background_edit_text.xml" value="0.2203125" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/drawable/rounded_green_button_container.xml" value="0.1765625" />
@@ -28,6 +31,7 @@
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_chat.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_choose_profile_photo_bottom_sheet_fragment.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_communication.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_favorite_business_cards_bottom_sheet.xml" value="0.14895833333333333" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_my_business_card_bottom_sheet.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Darko/AndroidStudioProjects/BusinessChat/app/src/main/res/layout/fragment_users.xml" value="0.20416666666666666" />

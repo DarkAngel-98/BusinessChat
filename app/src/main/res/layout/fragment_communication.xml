@@ -27,12 +27,23 @@
                 android:layout_alignParentTop="true"
                 android:background="@color/orange">
 
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:padding="@dimen/dimen_10"
+                    android:src="@drawable/ic_arrow_back_white_both" />
+
+
                 <RelativeLayout
                     android:id="@+id/profile_photo_wrapper"
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="@dimen/dimen_80"
+                    android:layout_toEndOf="@+id/back_btn"
                     android:layout_marginVertical="@dimen/dimen_10"
-                    android:layout_marginStart="@dimen/dimen_16">
+                    android:layout_marginStart="@dimen/dimen_10">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/communication_profile_picture"
@@ -59,6 +70,7 @@
                     android:layout_marginStart="@dimen/dimen_5"
                     android:layout_marginEnd="@dimen/dimen_16"
                     android:layout_toEndOf="@id/profile_photo_wrapper"
+                    android:layout_toStartOf="@+id/icon_star"
                     android:orientation="horizontal">
 
                     <TextView
@@ -80,6 +92,16 @@
                         android:maxLines="1" />
 
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/icon_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_16"
+                    android:padding="@dimen/dimen_10"
+                    android:src="@drawable/ic_star" />
 
             </RelativeLayout>
 

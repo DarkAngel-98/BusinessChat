@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businesscards.R
 import com.example.businesscards.StartActivity
 import com.example.businesscards.adapters.AccountInfoAdapter
+import com.example.businesscards.chat.MyBusinessCardBottomSheetFragment
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.FragmentHomeBinding
@@ -187,13 +188,15 @@ class HomeFragment : Fragment(), BasicListener {
         binding.addPictureButton.setOnClickListener {
             openImages()
         }
+        binding.favoriteCards.setOnClickListener {
+            FavoriteBusinessCardsBottomSheetFragment.showFavoriteBusinessCards(requireActivity())
+        }
     }
 
     private fun openImages() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        //registerForActivityResult()
         startActivityForResult(intent, IMAGE_REQUEST)
     }
 

@@ -43,7 +43,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
     companion object{
         private const val TAG = "businessCardBottomSheetFragmentTag"
 
-        fun showReportComment(user: UserInfo, requireActivity: FragmentActivity) =
+        fun showBusinessCard(user: UserInfo, requireActivity: FragmentActivity) =
             MyBusinessCardBottomSheetFragment().apply {
             arguments = bundleOf(HeartSingleton.BundleBusinessCard to user)
             }.show(requireActivity.supportFragmentManager, TAG)
