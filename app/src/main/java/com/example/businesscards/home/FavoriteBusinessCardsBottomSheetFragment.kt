@@ -1,6 +1,8 @@
 package com.example.businesscards.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -110,8 +112,20 @@ class FavoriteBusinessCardsBottomSheetFragment : BottomSheetDialogFragment(), Ba
             longPressDialog(HeartSingleton.AlertDialogOK, it)
         }
         businessCardAdapter?.setLinkedInListener{
-            // create/open webView here
+            openVebView(it)
         }
+    }
+
+    private fun openVebView(url: String){
+
+        var webPage: Uri = Uri.parse(url)
+
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            webPage = Uri.parse("http://$url")
+        }
+        val intent = Intent(Intent.ACTION_VIEW, webPage)
+        if(intent.resolveActivity(requireActivity().packageManager) != null)
+            startActivity(intent)
     }
 
     private fun longPressDialog(negativeButton: String, card: BusinessCardModel) {

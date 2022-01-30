@@ -87,7 +87,7 @@ class PreferenceClass(context: Context) {
         prefs.edit().putInt(HeartSingleton.PrefYearsOfExperience, experience).apply()
     }
     fun getYearsOfExperience(): Int {
-        return prefs.getInt(HeartSingleton.PrefYearsOfExperience, -1)
+        return prefs.getInt(HeartSingleton.PrefYearsOfExperience, 0)
     }
 
     fun saveInterests(interests: String) {

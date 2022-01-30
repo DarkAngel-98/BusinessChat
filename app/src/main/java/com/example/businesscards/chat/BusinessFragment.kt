@@ -1,9 +1,10 @@
 package com.example.businesscards.chat
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.provider.ContactsContract
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.example.businesscards.R
 import com.example.businesscards.adapters.BusinessCardAdapter
+import com.example.businesscards.constants.CardIdHelperSingleton
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.startup.MainActivity
@@ -78,17 +80,17 @@ class BusinessFragment : Fragment(), BasicListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 cardList?.clear()
                 for (cardData in snapshot.children) {
-                    // check again here on how to delete specific card.
-                    cardData.key
-                    Log.d(TAG, cardData.key.toString())
                     var businessCard = cardData.getValue(BusinessCardModel::class.java) as BusinessCardModel
                         if (businessCard.receiverId.equals(firebaseUser?.uid)){
                             cardList?.add(businessCard)
+                            CardIdHelperSingleton.map[cardData.key.toString()] = businessCard
                         }
                 }
+                Log.d(TAG, CardIdHelperSingleton.map.keys.toString())
                 businessAdapter =
                     BusinessCardAdapter(cardList!!, R.layout.business_card_row_layout)
                 businessAdapter?.notifyItemRangeChanged(0, cardList!!.size-1)
+                Log.d(TAG, cardList?.size.toString())
                 binding.rvAllBusinessCards.adapter = businessAdapter
 
                 onStopped()
@@ -96,7 +98,7 @@ class BusinessFragment : Fragment(), BasicListener {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // not needed here
+                Log.e(TAG, error.message)
             }
 
         })
@@ -107,8 +109,20 @@ class BusinessFragment : Fragment(), BasicListener {
             showAlertDialog(HeartSingleton.AlertDialogSave,HeartSingleton.AlertDialogDelete,it)
         }
         businessAdapter?.setLinkedInListener{
-            Toast.makeText(requireContext(), "LinkedIn", Toast.LENGTH_SHORT).show()
+            openVebView(it)
         }
+    }
+
+    private fun openVebView(url: String){
+
+        var webPage: Uri = Uri.parse(url)
+
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            webPage = Uri.parse("http://$url")
+        }
+        val intent = Intent(Intent.ACTION_VIEW, webPage)
+        if(intent.resolveActivity(requireActivity().packageManager) != null)
+            startActivity(intent)
     }
 
     private fun showAlertDialog(positiveButton: String, negativeButton: String, card: BusinessCardModel) {
@@ -120,7 +134,7 @@ class BusinessFragment : Fragment(), BasicListener {
         }
 
         alertDialog.setNegativeButton(negativeButton) { _, _ ->
-
+            deleteBusinessCard(card)
         }
 
         alertDialog.create()
@@ -150,6 +164,23 @@ class BusinessFragment : Fragment(), BasicListener {
         retrievedCardList = Gson().fromJson(retrievedBusinessCardList, type)
 
         return retrievedCardList
+    }
+
+    private fun getIdForCardToDelete(card: BusinessCardModel): String {
+        var snap: String? = null
+        if (CardIdHelperSingleton.map.containsValue(card)){
+            val reversed = CardIdHelperSingleton.map.entries.associate { (k,v) -> v to k}
+            snap = reversed[card]
+        }
+
+        return snap!!
+    }
+
+    private fun deleteBusinessCard(card: BusinessCardModel){
+        var keyToDelete = getIdForCardToDelete(card)
+        var databaseReference =
+            FirebaseDatabase.getInstance().getReference(HeartSingleton.FireCardsDB)
+        databaseReference.child(keyToDelete).removeValue()
     }
 
     override fun onStarted() {

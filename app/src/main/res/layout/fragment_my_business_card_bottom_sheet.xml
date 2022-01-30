@@ -285,6 +285,7 @@
                     android:layout_toEndOf="@+id/static_linked_in"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
+                    android:longClickable="false"
                     android:focusableInTouchMode="false"
                     android:imeOptions="actionDone"
                     android:inputType="textEmailAddress"

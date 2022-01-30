@@ -52,9 +52,6 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
             MyBusinessCardBottomSheetFragment().apply {
             arguments = bundleOf(HeartSingleton.BundleBusinessCard to user)
             }.show(requireActivity.supportFragmentManager, TAG)
-
-
-
     }
 
 
