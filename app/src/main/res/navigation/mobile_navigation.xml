@@ -23,4 +23,10 @@
         android:id="@+id/businessFragment"
         android:name="com.example.businesscards.chat.BusinessFragment"
         android:label="BusinessFragment" />
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.example.businesscards.webview.WebViewFragment"
+        android:label="BusinessFragment"
+        app:launchSingleTop="true"/>
 </navigation>

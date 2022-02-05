@@ -151,7 +151,7 @@ class HomeFragment : Fragment(), BasicListener {
                     imageURL = userInfo?.imageURL
                     binding.homeProfileUsername.text = usersName
                     binding.homeProfileEmail.text = email
-                    if (!imageURL.isNullOrEmpty() && imageURL.equals(HeartSingleton.FireDefault))
+                    if (imageURL.isNullOrEmpty() || imageURL.equals(HeartSingleton.FireDefault))
                         binding.homeProfileImage.setImageResource(R.color.green_blue)
                     else
                         Picasso.get().load(imageURL).into(binding.homeProfileImage)

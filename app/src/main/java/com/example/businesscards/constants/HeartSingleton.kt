@@ -7,6 +7,7 @@ object HeartSingleton {
     const val SERVER_KEY = "AAAAqYpG56s:APA91bHIU4rlvdym9FcPsESDT_q01iEsICId0yEFdlp8Q8trpiQhUSTH2H-u2ImYxPieGODwWe8wsrBYnzEFUC0_Nh_ug7dV2simE-94k17BXfm6Z01aOatvs-bSJwKW0bS5fzIy5guD"
     const val CONTENT_TYPE = "application/json"
     const val TOPIC = "/topics/myTopic"
+    const val WEB_LINKED_IN = "WEB_LINKED_IN"
 
     const val PrefId = "Id"
     const val PrefToken = "Token"

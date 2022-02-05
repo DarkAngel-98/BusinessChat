@@ -4,12 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -112,8 +116,15 @@ class FavoriteBusinessCardsBottomSheetFragment : BottomSheetDialogFragment(), Ba
             longPressDialog(HeartSingleton.AlertDialogOK, it)
         }
         businessCardAdapter?.setLinkedInListener{
-            openVebView(it)
+            //openVebView(it)
+            navigateToWebView(it)
+            Handler(Looper.getMainLooper()).postDelayed({this.dismiss()},200)
         }
+    }
+
+    private fun navigateToWebView(webUrl: String){
+        val bundle = bundleOf(HeartSingleton.WEB_LINKED_IN to webUrl)
+        findNavController().navigate(R.id.webViewFragment, bundle,null)
     }
 
     private fun openVebView(url: String){

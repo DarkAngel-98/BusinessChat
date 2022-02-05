@@ -18,6 +18,8 @@ class UsersAdapter(
     private val userListener: UserListener
 ): RecyclerView.Adapter<UsersAdapter.MyViewHolder>() {
 
+    private lateinit var userLongPressed: UserListener.OnUserLongClick
+
     inner class MyViewHolder(val binding: UserRowLayoutBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: UserInfo){
             binding.userItem = item
@@ -58,7 +60,15 @@ class UsersAdapter(
             holder.binding.userRowRootLayout.setOnClickListener {
                 userListener.onUserClicked(user)
             }
+            holder.binding.root.setOnLongClickListener {
+                userLongPressed.userLongPressed(user)
+                return@setOnLongClickListener true
+            }
         }
+    }
+
+    fun userLongPressedListener(userPressed: UserListener.OnUserLongClick){
+        this.userLongPressed = userPressed
     }
 
     override fun getItemCount(): Int {

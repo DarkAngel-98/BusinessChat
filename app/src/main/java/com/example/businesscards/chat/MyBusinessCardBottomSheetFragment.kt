@@ -156,7 +156,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
                     prefs?.saveInterests(cInterests)
                     prefs?.saveLinkedinProfile(cLinkedin)
 
-                    updateUser(cName, cMail, cPhone)
+                    updateUser(cName, cMail, cPhone, cJobPosition)
 
                 }
                 else{
@@ -251,7 +251,7 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
         binding.myCardLinkedInProfile.clearFocus()
     }
 
-    private fun updateUser(compName: String, mail: String, phone: String){
+    private fun updateUser(compName: String, mail: String, phone: String, jobPosition: String){
         var currentUserId = firebaseUser?.uid!!
 
             FirebaseDatabase.getInstance()
@@ -265,6 +265,10 @@ class MyBusinessCardBottomSheetFragment : BottomSheetDialogFragment(), BasicList
         FirebaseDatabase.getInstance()
             .getReference(HeartSingleton.FireUsersDB)
             .child(currentUserId).child(HeartSingleton.FireMobilePhone).setValue(phone)
+
+        FirebaseDatabase.getInstance()
+            .getReference(HeartSingleton.FireUsersDB)
+            .child(currentUserId).child(HeartSingleton.FireCardJobPosition).setValue(jobPosition)
     }
 
     private fun showAlertDialog(title: String){

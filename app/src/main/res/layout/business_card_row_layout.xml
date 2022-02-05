@@ -199,6 +199,7 @@
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_10"
             android:background="@android:color/transparent"
+            android:gravity="center"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{cardItem.interests}" />
@@ -227,8 +228,9 @@
             android:layout_marginBottom="@dimen/dimen_20"
             android:background="@android:color/transparent"
             android:ellipsize="end"
-            android:text="@{cardItem.linkedInProfile}"
-            android:maxLines="2" />
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="@{cardItem.linkedInProfile}" />
 
     </RelativeLayout>
 

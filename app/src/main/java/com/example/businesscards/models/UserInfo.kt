@@ -15,6 +15,7 @@ class UserInfo():Serializable {
     var imageURL: String? = ""
     var username: String? = ""
     var token: String? = ""
+    var jobPosition: String? = ""
     var status: Int? = 0
     var newMessage: Int = 0
 }
