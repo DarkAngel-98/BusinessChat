@@ -68,6 +68,7 @@ object HeartSingleton {
     const val AlertDialogSave = "Save"
     const val AlertDialogDelete = "Delete"
     const val AlertDialogOK = "OK"
+    const val AlertDialogUploading = "Uploading"
 
     const val IntentRegister = "FromRegister"
     const val IntentLogin = "FromLogin"

@@ -6,6 +6,7 @@ import android.app.ProgressDialog
 import android.content.ContentResolver
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -78,7 +79,6 @@ class HomeFragment : Fragment(), BasicListener {
 
         prefs = PreferenceClass(requireActivity())
 
-
     }
 
     override fun onCreateView(
@@ -116,8 +116,12 @@ class HomeFragment : Fragment(), BasicListener {
             binding.homeProfileEmail.text = email
             if (!imageURL.isNullOrEmpty() && imageURL.equals(HeartSingleton.FireDefault))
                 binding.homeProfileImage.setImageResource(R.drawable.ic_add_a_photo)
-            else
-                Picasso.get().load(imageURL).into(binding.homeProfileImage)
+            else {
+                val bitmapImage = Picasso.get().load(imageURL).get()
+                val newBitmapImage =
+                    Bitmap.createScaledBitmap(bitmapImage, 50, 50, false)
+                binding.homeProfileImage.setImageBitmap(newBitmapImage)
+            }
 
             var accountInfoTitleList = listOf(
                 AccountInfoModels("First Name", fName),
@@ -208,7 +212,7 @@ class HomeFragment : Fragment(), BasicListener {
 
     private fun uploadImage() {
         val progressDialog = ProgressDialog(requireContext())
-        progressDialog.setMessage("Uploading")
+        progressDialog.setMessage(HeartSingleton.AlertDialogUploading)
         progressDialog.show()
 
         if (newImageUrl != null) {
