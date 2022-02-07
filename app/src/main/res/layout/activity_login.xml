@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -14,8 +15,8 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_centerInParent="true"
+            android:orientation="vertical"
             tools:context=".startup.LoginActivity">
 
             <EditText
@@ -24,30 +25,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_16"
                 android:layout_marginVertical="@dimen/dimen_10"
-                android:hint="@string/enterYourEmail"
-                android:padding="@dimen/dimen_10"
                 android:background="@drawable/round_background_edit_text"
+                android:hint="@string/enterYourEmail"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
+                android:padding="@dimen/dimen_10"
                 android:textColor="@color/orange" />
 
-            <EditText
-                android:id="@+id/loginPassword"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_background_edit_text"
                 android:layout_marginHorizontal="@dimen/dimen_16"
                 android:layout_marginVertical="@dimen/dimen_10"
-                android:hint="@string/password"
-                android:padding="@dimen/dimen_10"
-                android:background="@drawable/round_background_edit_text"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:textColor="@color/orange" />
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/loginPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/password"
+                    android:background="@drawable/round_background_edit_text"
+                    android:inputType="textPassword"
+                    android:textColor="@color/orange" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/login_button"
+            style="@style/text_white_both_20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -56,9 +64,8 @@
             android:layout_marginVertical="@dimen/dimen_10"
             android:layout_marginBottom="@dimen/dimen_10"
             android:background="@drawable/rounded_orange_button_container"
-            android:text="@string/login"
-            style="@style/text_white_both_20sp"
             android:padding="@dimen/dimen_5"
+            android:text="@string/login"
             android:textAllCaps="false" />
 
         <ProgressBar

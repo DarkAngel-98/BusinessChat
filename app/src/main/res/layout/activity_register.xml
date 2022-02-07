@@ -19,11 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
             android:hint="@string/firstName"
             android:imeOptions="actionNext"
-            android:padding="@dimen/dimen_10"
-            android:background="@drawable/round_background_edit_text"
             android:inputType="text"
+            android:padding="@dimen/dimen_10"
             android:textColor="@color/orange" />
 
         <EditText
@@ -32,11 +32,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/lastName"
-            android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"
+            android:hint="@string/lastName"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:padding="@dimen/dimen_10"
             android:textColor="@color/orange" />
 
         <EditText
@@ -45,11 +45,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/username"
-            android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"
+            android:hint="@string/username"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:padding="@dimen/dimen_10"
             android:textColor="@color/orange" />
 
         <EditText
@@ -58,25 +58,31 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/enterYourEmail"
-            android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"
+            android:hint="@string/enterYourEmail"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
+            android:padding="@dimen/dimen_10"
             android:textColor="@color/orange" />
 
-        <EditText
-            android:id="@+id/register_password"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/password"
-            android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"
-            android:imeOptions="actionNext"
-            android:inputType="textPassword"
-            android:textColor="@color/orange" />
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:hint="@string/password"
+                android:background="@drawable/round_background_edit_text"
+                android:inputType="textPassword"
+                android:textColor="@color/orange" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <EditText
             android:id="@+id/register_mobile_phone"
@@ -84,11 +90,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/enterYourMobilePhone"
-            android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"
+            android:hint="@string/enterYourMobilePhone"
             android:imeOptions="actionNext"
             android:inputType="phone"
+            android:padding="@dimen/dimen_10"
             android:textColor="@color/orange" />
 
         <EditText
@@ -97,11 +103,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
+            android:background="@drawable/round_background_edit_text"
             android:hint="@string/enterYourCompanyName"
             android:imeOptions="actionNext"
-            android:padding="@dimen/dimen_10"
-            android:background="@drawable/round_background_edit_text"
             android:inputType="text"
+            android:padding="@dimen/dimen_10"
             android:textColor="@color/orange" />
 
         <EditText
@@ -110,11 +116,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
-            android:hint="@string/homeAddress"
-            android:padding="@dimen/dimen_10"
             android:background="@drawable/round_background_edit_text"
+            android:hint="@string/homeAddress"
             android:imeOptions="actionDone"
             android:inputType="text"
+            android:padding="@dimen/dimen_10"
             android:textColor="@color/orange" />
 
     </LinearLayout>
