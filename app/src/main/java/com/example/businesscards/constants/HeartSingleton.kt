@@ -62,7 +62,7 @@ object HeartSingleton {
     const val FireStatus = "status"
     const val FireNewMessage = "newMessage"
 
-    const val AlertDialogTitle = "Field all required fields"
+    const val AlertDialogTitle = "Please fill all required fields"
     const val AlertDialogLogOut = "Are you sure you want to logout ?"
     const val AlertDialogAlreadySentCard = "You already sent card to this user"
     const val AlertDialogSave = "Save"

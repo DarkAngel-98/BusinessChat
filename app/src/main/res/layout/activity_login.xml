@@ -34,10 +34,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/round_background_edit_text"
                 android:layout_marginHorizontal="@dimen/dimen_16"
                 android:layout_marginVertical="@dimen/dimen_10"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:passwordToggleEnabled="true">
 
                 <EditText

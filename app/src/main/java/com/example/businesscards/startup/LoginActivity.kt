@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity(), BasicListener {
     private lateinit var auth: FirebaseAuth
     lateinit var firebaseReference: DatabaseReference
     var firebaseUser: FirebaseUser? = null
+    private val TAG = "LOGIN_ACTIVITY"
     var userInfo: UserInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +64,7 @@ class LoginActivity : AppCompatActivity(), BasicListener {
                         startActivity(intent)
                         finish()
                     } else {
-                        showAlertDialog(task.exception.toString())
+                        showAlertDialog(task.exception?.message.toString())
                         onStopped()
                     }
                 }
@@ -96,7 +97,7 @@ class LoginActivity : AppCompatActivity(), BasicListener {
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                Log.e(TAG, error.message)
             }
         })
     }
@@ -109,11 +110,9 @@ class LoginActivity : AppCompatActivity(), BasicListener {
     private fun showAlertDialog(title: String) {
         val alertDialog = AlertDialog.Builder(this)
         alertDialog.setTitle(title)
-        alertDialog.setNegativeButton(
-            "OK",
-            DialogInterface.OnClickListener { dialogInterface, _ ->
-                dialogInterface.cancel()
-            })
+        alertDialog.setNegativeButton("OK") { dialogInterface, _ ->
+            dialogInterface.cancel()
+        }
         alertDialog.create()
         alertDialog.show()
     }

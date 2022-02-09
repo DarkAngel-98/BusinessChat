@@ -22,9 +22,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businesscards.R
-import com.example.businesscards.StartActivity
+import com.example.businesscards.SplashActivity
 import com.example.businesscards.adapters.AccountInfoAdapter
-import com.example.businesscards.chat.MyBusinessCardBottomSheetFragment
 import com.example.businesscards.constants.HeartSingleton
 import com.example.businesscards.constants.PreferenceClass
 import com.example.businesscards.databinding.FragmentHomeBinding
@@ -32,8 +31,6 @@ import com.example.businesscards.interfaces.BasicListener
 import com.example.businesscards.models.AccountInfoModels
 import com.example.businesscards.models.UserInfo
 import com.example.businesscards.startup.MainActivity
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -42,7 +39,6 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
-import kotlin.coroutines.Continuation
 
 class HomeFragment : Fragment(), BasicListener {
     private var prefs: PreferenceClass? = null
@@ -274,7 +270,7 @@ class HomeFragment : Fragment(), BasicListener {
         alertDialog.setPositiveButton("YES") { _, _ ->
             prefs?.setUserLoggedIn(false)
             setStatus(0)
-            val intent = Intent(requireContext(), StartActivity::class.java)
+            val intent = Intent(requireContext(), SplashActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             Handler(Looper.getMainLooper()).postDelayed({startActivity(intent)},500)
         }
