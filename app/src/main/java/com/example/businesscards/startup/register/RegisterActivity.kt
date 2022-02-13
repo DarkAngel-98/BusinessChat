@@ -34,6 +34,7 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
     private val IMAGE_REQUEST = 1
     private var newImageUrl: Uri? = null
     private var uploadTask: StorageTask<UploadTask.TaskSnapshot>? = null
+    private var TAG = "REGISTER_ACTIVITY"
 
     var firebaseUser: FirebaseUser? = null
     var databaseReference: DatabaseReference? = null
@@ -77,10 +78,10 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
     private fun showAlertDialog(title: String){
         val alertDialog= AlertDialog.Builder(this)
         alertDialog.setTitle(title)
-        alertDialog.setNegativeButton("OK", DialogInterface.OnClickListener { dialogInterface, _ ->
+        alertDialog.setNegativeButton("OK") { dialogInterface, _ ->
             dialogInterface.cancel()
             onStopped()
-        })
+        }
         alertDialog.create()
         alertDialog.show()
     }
@@ -98,7 +99,6 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
                     FirebaseDatabase.getInstance()
                         .getReference(HeartSingleton.FireUsersDB)
                         .child(userId)
-                Log.d("TAG", userId)
                 var hashMap: HashMap<String, String> = HashMap()
                 hashMap[HeartSingleton.FireId] = userId
                 hashMap[HeartSingleton.FireFirstName] = firstName
@@ -137,10 +137,11 @@ class RegisterActivity : AppCompatActivity(), BasicListener {
                         finish()
                     }
                 }
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                Log.d(TAG, task.result.toString())
             }
             else{
-                Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
+                //showAlertDialog(task.exception?.message!!)
                 onStopped()
             }
         }

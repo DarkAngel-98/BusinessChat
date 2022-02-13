@@ -172,7 +172,6 @@ class BusinessFragment : Fragment(), BasicListener {
         val gson = Gson()
         val type: Type = object: TypeToken<ArrayList<BusinessCardModel>>() {}.type
         retrievedCardList = Gson().fromJson(retrievedBusinessCardList, type)
-
         return retrievedCardList
     }
 

@@ -70,6 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_marginVertical="@dimen/dimen_10"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:background="@drawable/round_background_edit_text"
             app:passwordToggleEnabled="true">
 
@@ -79,8 +81,6 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:hint="@string/password"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
                 android:background="@drawable/round_background_edit_text"
                 android:inputType="textPassword"
                 android:textColor="@color/orange" />
